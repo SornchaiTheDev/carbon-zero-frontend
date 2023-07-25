@@ -1,118 +1,250 @@
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
-
-const inter = Inter({ subsets: ['latin'] })
-
-export default function Home() {
+import { Icon } from "@iconify/react";
+import Link from "next/link";
+import Layout from "~/layout";
+function Home() {
   return (
-    <main
-      className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
-    >
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/pages/index.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <Layout>
+      <div
+        className="relative w-full h-[100vh]"
+        style={{
+          background: "url(assets/bg.jpg)",
+          backgroundRepeat: "no-repeat",
+        }}
+      >
+        <div className="absolute top-0 w-full">
+          <div className="flex justify-center">
+            <div className="flex items-center justify-center w-full max-w-4xl px-4 py-2 m-4 mt-5 bg-white rounded-full shadow-md">
+              <div className="flex-1"></div>
+              <div className="flex-1">
+                <img
+                  className="w-24"
+                  src="https://www.co2neutralwebsite.com/images/logo_en.svg"
+                />
+              </div>
+              <div className="text-green-12 hover:text-green-11">
+                <Link href="signin">Sign in</Link>
+                <button className="px-4 py-2 ml-4 border-2 rounded-full hover:bg-green-3 border-green-10 text-green-10">
+                  Start Donate
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="absolute flex flex-col items-center w-full gap-4 px-2 -translate-x-1/2 md:w-fit -translate-y-1/3 top-1/3 left-1/2">
+          <h5 className="px-2 py-1 font-bold border rounded-full text-green-10 border-green-10">
+            Discover the Impact
+          </h5>
+          <h4 className="text-4xl text-center text-green-12">
+            <b>1,234,567</b> kgs of <b>CO<sub>2</sub></b> have emitted to atmosphere
+          </h4>
+          <button className="px-4 py-2 mt-6 text-center bg-white border-2 rounded-full hover:bg-green-3 border-green-10 text-green-10">
+            Discover Your Carbon Footprint Now
+          </button>
         </div>
       </div>
+      <main>
+        <section className="container flex flex-col max-w-5xl gap-10 p-4 m-4 mx-auto">
+          <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
+            <div className="sm:w-1/2">
+              <h4 className="text-xl font-bold">
+                Our Planet&apos;s Call to Action
+              </h4>
+              <p className="mt-4">
+                Our planet is calling for action. Climate change, driven by
+                carbon emissions, poses an unprecedented threat to our
+                ecosystems, wildlife, and the very fabric of life. But together,
+                we can turn the tide and create a sustainable future. Welcome to
+                CarbonZero , where every step counts towards healing our Earth.
+              </p>
+            </div>
+            <img className="sm:w-1/3" src="./assets/draw1.svg" />
+          </div>
 
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700/10 after:dark:from-sky-900 after:dark:via-[#0141ff]/40 before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+          <div className="flex flex-col items-center justify-between gap-4 mt-10 sm:flex-row-reverse">
+            <div className="sm:w-1/2">
+              <h4 className="text-xl font-bold">A Promise to Offset</h4>
+              <p className="mt-4">
+                We make a promise to you and to our planet. For every ounce of
+                carbon you emit, we offer you the chance to offset your impact.
+                Invest in certified carbon credits that support renewable energy
+                projects, reforestation efforts, and sustainable initiatives
+                worldwide. Together, we&apos;ll create a climate-positive
+                future.
+              </p>
+            </div>
+            <img className="sm:w-1/3" src="./assets/draw1.svg" />
+          </div>
 
-      <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
+          <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
+            <div className="sm:w-1/2">
+              <h4 className="text-xl font-bold">Understanding Your Impact</h4>
+              <p className="mt-4">
+                Discover the true extent of your impact with our carbon
+                footprint calculator. Knowledge is power, and understanding your
+                carbon footprint is the first step towards positive change.
+                Measure your daily activities, energy usage, and lifestyle
+                choices, and gain invaluable insights into your personal
+                contribution to carbon emissions.
+              </p>
+            </div>
+            <img className="sm:w-1/3" src="./assets/draw1.svg" />
+          </div>
+        </section>
+
+        <section className="container p-4 m-4 mx-auto mt-10">
+          <h5 className="text-lg text-sand-9">How it work</h5>
+          <h2 className="text-3xl font-bold md:w-1/3">
+            Fundraising on GoFundMe takes just a few minutes
           </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
+          <div className="grid grid-cols-12 gap-4 mt-10">
+            <div className="flex flex-col items-center justify-center col-span-12 gap-2 p-4 rounded-md md:col-span-4 bg-sand-4">
+              <div className="flex items-center justify-center w-12 h-12 font-bold bg-white rounded-full">
+                1
+              </div>
+              <h4 className="text-lg font-bold">Offset Your Carbon</h4>
+              <p className="text-center">
+                Take action against climate change. Offset your carbon footprint
+                with certified credits and make a positive impact on the planet.
+              </p>
+            </div>
+            <div className="flex flex-col items-center justify-center col-span-12 gap-2 p-4 rounded-md md:col-span-4 bg-sand-4">
+              <div className="flex items-center justify-center w-12 h-12 font-bold bg-white rounded-full">
+                2
+              </div>
+              <h4 className="text-lg font-bold">Plant Trees, Reduce Carbon</h4>
+              <p className="text-center">
+                Be a part of the solution. Plant trees and support projects that
+                reduce carbon emissions, fostering a healthier environment for
+                all.
+              </p>
+            </div>
+            <div className="flex flex-col items-center justify-center col-span-12 gap-2 p-4 rounded-md md:col-span-4 bg-sand-4">
+              <div className="flex items-center justify-center w-12 h-12 font-bold bg-white rounded-full">
+                3
+              </div>
+              <h4 className="text-lg font-bold">Create a Better World</h4>
+              <p className="text-center">
+                Join the movement for a better world. Together, we can build a
+                sustainable future for generations to come.
+              </p>
+            </div>
+          </div>
+        </section>
+        <section className="container p-4 m-4 mx-auto">
+          <h5 className="text-lg text-sand-9">News</h5>
+          <h2 className="text-3xl font-bold md:w-1/3">Carbon</h2>
+          <div className="grid grid-cols-12 gap-6 mt-10">
+            <div
+              className="relative col-span-12 overflow-hidden rounded-lg h-96 md:col-span-4"
+              style={{
+                background:
+                  "url(https://images.unsplash.com/photo-1690184432588-81068877d852?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80)",
+                backgroundPosition: "center",
+                backgroundSize: "cover",
+              }}
+            >
+              <div className="absolute bottom-0 w-full p-4 bg-sand-2">
+                <h3 className="text-lg font-bold">Atmosphere lorem</h3>
+                <p>Lorem ipsum dolor sit amet...</p>
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
+                <button className="flex items-center px-2 py-1 my-2 border rounded border-green-12 hover:bg-sand-4 group">
+                  <h5>Read more</h5>
+                  <Icon
+                    icon="solar:alt-arrow-right-linear"
+                    className="hidden group-hover:block"
+                  />
+                </button>
+              </div>
+            </div>
+            <div
+              className="relative col-span-12 overflow-hidden rounded-lg h-96 md:col-span-4"
+              style={{
+                background:
+                  "url(https://images.unsplash.com/photo-1690184432588-81068877d852?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80)",
+                backgroundSize: "cover",
+              }}
+            >
+              <div className="absolute bottom-0 w-full p-4 bg-sand-2">
+                <h3 className="text-lg font-bold">Atmosphere lorem</h3>
+                <p>Lorem ipsum dolor sit amet...</p>
+                <button className="flex items-center px-2 py-1 my-2 border rounded border-green-12 hover:bg-sand-4 group">
+                  <h5>Read more</h5>
+                  <Icon
+                    icon="solar:alt-arrow-right-linear"
+                    className="hidden group-hover:block"
+                  />
+                </button>
+              </div>
+            </div>
+            <div
+              className="relative col-span-12 overflow-hidden rounded-lg h-96 md:col-span-4"
+              style={{
+                background:
+                  "url(https://images.unsplash.com/photo-1690184432588-81068877d852?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80)",
+                backgroundSize: "cover",
+              }}
+            >
+              <div className="absolute bottom-0 w-full p-4 bg-sand-2">
+                <h3 className="text-lg font-bold">Atmosphere lorem</h3>
+                <p>Lorem ipsum dolor sit amet...</p>
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Discover and deploy boilerplate example Next.js&nbsp;projects.
-          </p>
-        </a>
+                <button className="flex items-center px-2 py-1 my-2 border rounded border-green-12 hover:bg-sand-4 group">
+                  <h5>Read more</h5>
+                  <Icon
+                    icon="solar:alt-arrow-right-linear"
+                    className="hidden group-hover:block"
+                  />
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+      <footer>
+        <div className="container flex flex-wrap justify-between max-w-6xl gap-10 p-10 mx-auto">
+          <img
+            className="w-36"
+            src="https://www.co2neutralwebsite.com/images/logo_en.svg"
+          />
+          <div className="flex flex-wrap gap-10">
+            <div>
+              <h4 className="text-xl text-lime-11">Contact Us</h4>
+              <p>
+                <span className="font-medium">IngenCO2.dk</span> <br /> Inge
+                Lehmanns Gade 10,
+                <br /> 6. sal 8000 Aarhus C Denmark
+                <br />
+                <a
+                  className="underline text-lime-11"
+                  href="mailto:info@CO2neutralwebsite.com"
+                >
+                  info@CO2neutralwebsite.com
+                </a>
+              </p>
+            </div>
+            <div>
+              <h4 className="text-xl text-lime-11">About CarbonZero</h4>
+              <p>lorem lorem</p>
+            </div>
+          </div>
+        </div>
 
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+        <div className="flex flex-col flex-wrap items-center p-4 px-6 text-sm md:justify-between md:flex-row bg-sand-3 text-sand-12">
+          <h6>
+            &copy; {new Date().getFullYear()} CarbonZero. All rights reserved.
+          </h6>
+          <div>
+            <a className="hover:text-lime-10" href="#">
+              Terms and conditions
+            </a>
+            <a className="ml-2 hover:text-lime-10" href="#">
+              Privacy and cookie policy
+            </a>
+          </div>
+        </div>
+      </footer>
+    </Layout>
+  );
 }
+
+export default Home;
