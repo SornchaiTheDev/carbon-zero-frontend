@@ -15,12 +15,11 @@ function Terms() {
       >
         <Navbar />
       </div>
-      <div className="container mx-auto -translate-y-48">
-        <h2 className="my-6 text-4xl font-bold text-green-12">
-          Terms and conditions
-        </h2>
-
+      <div className="container px-4 mx-auto -translate-y-48">
         <div className="p-4 bg-white rounded-lg shadow-md">
+          <h2 className="my-6 text-4xl font-bold text-green-12">
+            Terms and conditions
+          </h2>
           <p className="mt-10">
             Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quam
             perferendis ipsam deleniti nisi ipsum? Recusandae, nemo, repellat
