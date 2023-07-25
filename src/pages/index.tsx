@@ -1,10 +1,9 @@
 import { Icon } from "@iconify/react";
-import Link from "next/link";
 import Navbar from "~/components/Navbar";
 import Layout from "~/layout";
 function Home() {
   return (
-    <Layout>
+    <Layout withOutNavbar>
       <div
         className="relative w-full h-[100vh]"
         style={{
@@ -14,7 +13,7 @@ function Home() {
         }}
       >
         <Navbar />
-        <div className="absolute flex flex-col items-center w-full gap-4 px-2 -translate-x-1/2 md:w-fit -translate-y-1/3 top-1/3 left-1/2">
+        <div className="absolute flex flex-col items-center w-full gap-4 px-2 -translate-x-1/2 -translate-y-1/2 md:w-fit top-1/2 left-1/2">
           <h5 className="px-2 py-1 font-bold border rounded-full text-green-10 border-green-10">
             Discover the Impact
           </h5>

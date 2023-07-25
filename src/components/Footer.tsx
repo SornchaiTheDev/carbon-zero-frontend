@@ -11,14 +11,14 @@ function Footer() {
         />
         <div className="flex flex-wrap gap-10">
           <div>
-            <h4 className="text-xl text-lime-11">Contact Us</h4>
+            <h4 className="text-xl text-green-11">Contact Us</h4>
             <p>
               <span className="font-medium">IngenCO2.dk</span> <br /> Inge
               Lehmanns Gade 10,
               <br /> 6. sal 8000 Aarhus C Denmark
               <br />
               <a
-                className="underline text-lime-11"
+                className="underline text-green-11"
                 href="mailto:info@CO2neutralwebsite.com"
               >
                 info@CO2neutralwebsite.com
@@ -26,7 +26,7 @@ function Footer() {
             </p>
           </div>
           <div>
-            <h4 className="text-xl text-lime-11">About CarbonZero</h4>
+            <h4 className="text-xl text-green-11">About CarbonZero</h4>
             <p>lorem lorem</p>
           </div>
         </div>
@@ -37,10 +37,10 @@ function Footer() {
           &copy; {new Date().getFullYear()} CarbonZero. All rights reserved.
         </h6>
         <div>
-          <Link className="hover:text-lime-10" href="terms">
+          <Link className="hover:text-green-10" href="terms">
             Terms and conditions
           </Link>
-          <Link className="ml-2 hover:text-lime-10" href="privacy">
+          <Link className="ml-2 hover:text-green-10" href="privacy">
             Privacy and cookie policy
           </Link>
         </div>

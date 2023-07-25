@@ -10,11 +10,14 @@ const sarabun = Sarabun({
 
 interface Props {
   children: ReactNode;
+  className?: string;
   withOutNavbar?: boolean;
 }
-export default function Layout({ children, withOutNavbar }: Props) {
+export default function Layout({ children, withOutNavbar, className }: Props) {
   return (
-    <div className={sarabun.className}>
+    <div
+      className={sarabun.className.concat(!!className ? " " + className : "")}
+    >
       {!withOutNavbar && <Navbar />}
       {children}
       <Footer />

@@ -4,17 +4,21 @@ import Layout from "~/layout";
 
 function Privacy() {
   return (
-    <Layout>
+    <Layout withOutNavbar>
       <div
-        className="w-full h-[50vh] pt-[10rem] px-6"
+        className="w-full h-[50vh] px-6"
         style={{
           background: "url(assets/bg.jpg)",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
         }}
-      ></div>
+      >
+        <Navbar />
+      </div>
       <div className="container mx-auto -translate-y-48">
-        <h2 className="my-6 text-4xl font-bold text-green-12">Privacy and cookie policy</h2>
+        <h2 className="my-6 text-4xl font-bold text-green-12">
+          Privacy and cookie policy
+        </h2>
 
         <div className="p-4 bg-white rounded-lg shadow-md">
           <p className="mt-10">
