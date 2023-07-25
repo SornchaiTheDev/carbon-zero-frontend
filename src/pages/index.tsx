@@ -18,12 +18,12 @@ function Home() {
             Discover the Impact
           </h5>
           <h4 className="text-4xl text-center text-green-12">
-            <b className="text-green-10">1,234,567</b> kgs of{" "}
-            <b className="text-green-10">
+            <b>1,234,567</b> kgs of{" "}
+            <b>
               CO<sub>2</sub>
             </b>{" "}
           </h4>
-          <h5 className="text-3xl text-green-12">have emitted to atmosphere</h5>
+          <h5 className="text-3xl text-center text-green-12">have emitted to atmosphere</h5>
           <button className="px-4 py-2 mt-6 text-center bg-white border-2 rounded-full hover:bg-green-3 border-green-10 text-green-10">
             Discover Your Carbon Footprint Now
           </button>
