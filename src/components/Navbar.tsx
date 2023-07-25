@@ -8,10 +8,12 @@ function Navbar() {
     <div className="w-full">
       <div className="fixed z-50 block w-full md:hidden">
         <div className="flex items-center justify-between p-4 bg-white ">
-          <img
-            className="w-24"
-            src="https://www.co2neutralwebsite.com/images/logo_en.svg"
-          />
+          <Link href="/">
+            <img
+              className="w-24"
+              src="https://www.co2neutralwebsite.com/images/logo_en.svg"
+            />
+          </Link>
           <button onClick={() => setIsOpen(!isOpen)}>
             <Icon
               className="text-2xl"

@@ -43,7 +43,7 @@ function Payment() {
   }
   return (
     <Layout className="flex flex-col h-screen">
-      <div className="container flex flex-col flex-1 max-w-6xl px-10 mx-auto md:mt-40 md:flex-row text-green-12">
+      <div className="container flex flex-col flex-1 max-w-6xl px-10 mx-auto mt-24 md:mt-40 md:flex-row text-green-12">
         <div className="w-full lg:w-2/3">
           <Back href="/payment" className="my-2" />
           <h2 className="text-3xl font-bold">Pay With Promptpay</h2>
