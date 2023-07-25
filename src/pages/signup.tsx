@@ -53,7 +53,7 @@ function SignUp() {
               />
             </div>
             <button className="w-full p-2 mt-4 border rounded-xl hover:text-white hover:bg-green-9 text-green-9 border-green-9">
-              Sign In
+              Sign Up
             </button>
           </form>
           <div>

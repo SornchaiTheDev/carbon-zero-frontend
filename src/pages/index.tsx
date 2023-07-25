@@ -1,5 +1,6 @@
 import { Icon } from "@iconify/react";
 import Link from "next/link";
+import Navbar from "~/components/Navbar";
 import Layout from "~/layout";
 function Home() {
   return (
@@ -9,34 +10,21 @@ function Home() {
         style={{
           background: "url(assets/bg.jpg)",
           backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
         }}
       >
-        <div className="absolute top-0 w-full">
-          <div className="flex justify-center">
-            <div className="flex items-center justify-center w-full max-w-4xl px-4 py-2 m-4 mt-5 bg-white rounded-full shadow-md">
-              <div className="flex-1"></div>
-              <div className="flex-1">
-                <img
-                  className="w-24"
-                  src="https://www.co2neutralwebsite.com/images/logo_en.svg"
-                />
-              </div>
-              <div className="text-green-12 hover:text-green-11">
-                <Link href="signin">Sign in</Link>
-                <button className="px-4 py-2 ml-4 border-2 rounded-full hover:bg-green-3 border-green-10 text-green-10">
-                  Start Donate
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+        <Navbar />
         <div className="absolute flex flex-col items-center w-full gap-4 px-2 -translate-x-1/2 md:w-fit -translate-y-1/3 top-1/3 left-1/2">
           <h5 className="px-2 py-1 font-bold border rounded-full text-green-10 border-green-10">
             Discover the Impact
           </h5>
           <h4 className="text-4xl text-center text-green-12">
-            <b>1,234,567</b> kgs of <b>CO<sub>2</sub></b> have emitted to atmosphere
+            <b className="text-green-10">1,234,567</b> kgs of{" "}
+            <b className="text-green-10">
+              CO<sub>2</sub>
+            </b>{" "}
           </h4>
+          <h5 className="text-3xl text-green-12">have emitted to atmosphere</h5>
           <button className="px-4 py-2 mt-6 text-center bg-white border-2 rounded-full hover:bg-green-3 border-green-10 text-green-10">
             Discover Your Carbon Footprint Now
           </button>
@@ -97,7 +85,7 @@ function Home() {
             Fundraising on GoFundMe takes just a few minutes
           </h2>
           <div className="grid grid-cols-12 gap-4 mt-10">
-            <div className="flex flex-col items-center justify-center col-span-12 gap-2 p-4 rounded-md md:col-span-4 bg-sand-4">
+            <div className="flex flex-col items-center justify-center col-span-12 gap-2 p-4 rounded-md sm:col-span-6 lg:col-span-4 bg-sand-4">
               <div className="flex items-center justify-center w-12 h-12 font-bold bg-white rounded-full">
                 1
               </div>
@@ -107,7 +95,7 @@ function Home() {
                 with certified credits and make a positive impact on the planet.
               </p>
             </div>
-            <div className="flex flex-col items-center justify-center col-span-12 gap-2 p-4 rounded-md md:col-span-4 bg-sand-4">
+            <div className="flex flex-col items-center justify-center col-span-12 gap-2 p-4 rounded-md sm:col-span-6 lg:col-span-4 bg-sand-4">
               <div className="flex items-center justify-center w-12 h-12 font-bold bg-white rounded-full">
                 2
               </div>
@@ -118,7 +106,7 @@ function Home() {
                 all.
               </p>
             </div>
-            <div className="flex flex-col items-center justify-center col-span-12 gap-2 p-4 rounded-md md:col-span-4 bg-sand-4">
+            <div className="flex flex-col items-center justify-center col-span-12 gap-2 p-4 rounded-md sm:col-span-6 lg:col-span-4 bg-sand-4">
               <div className="flex items-center justify-center w-12 h-12 font-bold bg-white rounded-full">
                 3
               </div>
@@ -135,7 +123,7 @@ function Home() {
           <h2 className="text-3xl font-bold md:w-1/3">Carbon</h2>
           <div className="grid grid-cols-12 gap-6 mt-10">
             <div
-              className="relative col-span-12 overflow-hidden rounded-lg h-96 md:col-span-4"
+              className="relative col-span-12 overflow-hidden rounded-lg h-96 sm:col-span-6 lg:col-span-4"
               style={{
                 background:
                   "url(https://images.unsplash.com/photo-1690184432588-81068877d852?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80)",
@@ -157,7 +145,7 @@ function Home() {
               </div>
             </div>
             <div
-              className="relative col-span-12 overflow-hidden rounded-lg h-96 md:col-span-4"
+              className="relative col-span-12 overflow-hidden rounded-lg h-96 sm:col-span-6 lg:col-span-4"
               style={{
                 background:
                   "url(https://images.unsplash.com/photo-1690184432588-81068877d852?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80)",
@@ -177,7 +165,7 @@ function Home() {
               </div>
             </div>
             <div
-              className="relative col-span-12 overflow-hidden rounded-lg h-96 md:col-span-4"
+              className="relative col-span-12 overflow-hidden rounded-lg h-96 sm:col-span-6 lg:col-span-4"
               style={{
                 background:
                   "url(https://images.unsplash.com/photo-1690184432588-81068877d852?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80)",
@@ -200,49 +188,6 @@ function Home() {
           </div>
         </section>
       </main>
-      <footer>
-        <div className="container flex flex-wrap justify-between max-w-6xl gap-10 p-10 mx-auto">
-          <img
-            className="w-36"
-            src="https://www.co2neutralwebsite.com/images/logo_en.svg"
-          />
-          <div className="flex flex-wrap gap-10">
-            <div>
-              <h4 className="text-xl text-lime-11">Contact Us</h4>
-              <p>
-                <span className="font-medium">IngenCO2.dk</span> <br /> Inge
-                Lehmanns Gade 10,
-                <br /> 6. sal 8000 Aarhus C Denmark
-                <br />
-                <a
-                  className="underline text-lime-11"
-                  href="mailto:info@CO2neutralwebsite.com"
-                >
-                  info@CO2neutralwebsite.com
-                </a>
-              </p>
-            </div>
-            <div>
-              <h4 className="text-xl text-lime-11">About CarbonZero</h4>
-              <p>lorem lorem</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="flex flex-col flex-wrap items-center p-4 px-6 text-sm md:justify-between md:flex-row bg-sand-3 text-sand-12">
-          <h6>
-            &copy; {new Date().getFullYear()} CarbonZero. All rights reserved.
-          </h6>
-          <div>
-            <a className="hover:text-lime-10" href="#">
-              Terms and conditions
-            </a>
-            <a className="ml-2 hover:text-lime-10" href="#">
-              Privacy and cookie policy
-            </a>
-          </div>
-        </div>
-      </footer>
     </Layout>
   );
 }
