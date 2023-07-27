@@ -18,7 +18,7 @@ function Payment() {
     <Layout className="flex flex-col h-screen">
       <div className="container flex flex-wrap flex-1 max-w-6xl px-10 mx-auto mt-24 md:mt-40 text-green-12">
         <div className="w-full lg:w-2/3">
-          <Back href="/" className="my-2" />
+          <Back href="../" className="my-2" />
           <h2 className="text-3xl font-bold">Payment Methods</h2>
           <h6 className="text-lg">
             Choose payment method to buy carbon credit

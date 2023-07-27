@@ -1,4 +1,5 @@
 import { Icon } from "@iconify/react";
+import Link from "next/link";
 import React from "react";
 import Discuss from "~/components/Discuss";
 import Layout from "~/layout";
@@ -14,7 +15,15 @@ function InsideBoard() {
           backgroundSize: "cover",
         }}
       ></div>
+
       <div className="container px-4 mx-auto mt-10">
+        <Link
+          href="/boards"
+          className="flex items-center gap-2 my-4 text-sand-12 hover:text-sand-12/70 w-fit top-6 left-6"
+        >
+          <Icon icon="solar:arrow-left-line-duotone" />
+          <h4>Back</h4>
+        </Link>
         <h2 className="text-3xl font-bold">ปลูกป่าช่วยชาติ</h2>
         <div className="flex items-end gap-4 mt-4">
           <div className="p-1 border-2 rounded-full border-sand-6">

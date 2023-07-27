@@ -26,14 +26,14 @@ function Navbar() {
             <Link href="/news" className="text-green-12 hover:text-green-11">
               News
             </Link>
-            <Link href="/board" className="text-green-12 hover:text-green-11">
+            <Link href="/boards" className="text-green-12 hover:text-green-11">
               Board
             </Link>
-            <Link href="signin" className="text-green-12 hover:text-green-11">
+            <Link href="/signin" className="text-green-12 hover:text-green-11">
               Sign in
             </Link>
             <Link
-              href="payment"
+              href="/donate"
               className="px-4 py-2 border-2 rounded-full hover:bg-green-3 border-green-10 text-green-10"
             >
               Start Donate
@@ -48,7 +48,7 @@ function Navbar() {
             <Link href="/news" className="text-green-12 hover:text-green-11">
               News
             </Link>
-            <Link href="/board" className="text-green-12 hover:text-green-11">
+            <Link href="/boards" className="text-green-12 hover:text-green-11">
               Board
             </Link>
           </div>
@@ -59,11 +59,11 @@ function Navbar() {
             />
           </Link>
           <div className="flex items-center justify-end flex-1 gap-4">
-            <Link href="signin" className="text-green-12 hover:text-green-11">
+            <Link href="/signin" className="text-green-12 hover:text-green-11">
               Sign in
             </Link>
             <Link
-              href="payment"
+              href="/donate"
               className="px-4 py-2 border-2 rounded-full hover:bg-green-3 border-green-10 text-green-10"
             >
               Start Donate

@@ -5,7 +5,7 @@ import React from "react";
 function Board() {
   return (
     <Link
-      href="/board/1"
+      href="/boards/1"
       className="flex flex-col col-span-12 gap-2 p-4 bg-white rounded-lg shadow sm:col-span-6 lg:col-span-4"
     >
       <div>
