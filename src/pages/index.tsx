@@ -1,5 +1,6 @@
 import { Icon } from "@iconify/react";
 import Navbar from "~/components/Navbar";
+import News from "~/components/News";
 import Layout from "~/layout";
 function Home() {
   return (
@@ -23,7 +24,9 @@ function Home() {
               CO<sub>2</sub>
             </b>{" "}
           </h4>
-          <h5 className="text-3xl text-center text-green-12">have emitted to atmosphere</h5>
+          <h5 className="text-3xl text-center text-green-12">
+            have emitted to atmosphere
+          </h5>
           <button className="px-4 py-2 mt-6 text-center bg-white border-2 rounded-full hover:bg-green-3 border-green-10 text-green-10">
             Discover Your Carbon Footprint Now
           </button>
@@ -121,69 +124,9 @@ function Home() {
           <h5 className="text-lg text-sand-9">News</h5>
           <h2 className="text-3xl font-bold md:w-1/3">Carbon</h2>
           <div className="grid grid-cols-12 gap-6 mt-10">
-            <div
-              className="relative col-span-12 overflow-hidden rounded-lg h-96 sm:col-span-6 lg:col-span-4"
-              style={{
-                background:
-                  "url(https://images.unsplash.com/photo-1690184432588-81068877d852?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80)",
-                backgroundPosition: "center",
-                backgroundSize: "cover",
-              }}
-            >
-              <div className="absolute bottom-0 w-full p-4 bg-sand-2">
-                <h3 className="text-lg font-bold">Atmosphere lorem</h3>
-                <p>Lorem ipsum dolor sit amet...</p>
-
-                <button className="flex items-center px-2 py-1 my-2 border rounded border-green-12 hover:bg-sand-4 group">
-                  <h5>Read more</h5>
-                  <Icon
-                    icon="solar:alt-arrow-right-linear"
-                    className="hidden group-hover:block"
-                  />
-                </button>
-              </div>
-            </div>
-            <div
-              className="relative col-span-12 overflow-hidden rounded-lg h-96 sm:col-span-6 lg:col-span-4"
-              style={{
-                background:
-                  "url(https://images.unsplash.com/photo-1690184432588-81068877d852?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80)",
-                backgroundSize: "cover",
-              }}
-            >
-              <div className="absolute bottom-0 w-full p-4 bg-sand-2">
-                <h3 className="text-lg font-bold">Atmosphere lorem</h3>
-                <p>Lorem ipsum dolor sit amet...</p>
-                <button className="flex items-center px-2 py-1 my-2 border rounded border-green-12 hover:bg-sand-4 group">
-                  <h5>Read more</h5>
-                  <Icon
-                    icon="solar:alt-arrow-right-linear"
-                    className="hidden group-hover:block"
-                  />
-                </button>
-              </div>
-            </div>
-            <div
-              className="relative col-span-12 overflow-hidden rounded-lg h-96 sm:col-span-6 lg:col-span-4"
-              style={{
-                background:
-                  "url(https://images.unsplash.com/photo-1690184432588-81068877d852?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80)",
-                backgroundSize: "cover",
-              }}
-            >
-              <div className="absolute bottom-0 w-full p-4 bg-sand-2">
-                <h3 className="text-lg font-bold">Atmosphere lorem</h3>
-                <p>Lorem ipsum dolor sit amet...</p>
-
-                <button className="flex items-center px-2 py-1 my-2 border rounded border-green-12 hover:bg-sand-4 group">
-                  <h5>Read more</h5>
-                  <Icon
-                    icon="solar:alt-arrow-right-linear"
-                    className="hidden group-hover:block"
-                  />
-                </button>
-              </div>
-            </div>
+            <News title="Test" href="/news/1" />
+            <News title="Test" href="/news/1" />
+            <News title="Test" href="/news/1" />
           </div>
         </section>
       </main>

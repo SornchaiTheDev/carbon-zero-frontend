@@ -23,10 +23,10 @@ function Navbar() {
         </div>
         {isOpen && (
           <div className="flex flex-col items-center w-full gap-6 p-4 text-lg bg-white md:hidden">
-            <Link href="signin" className="text-green-12 hover:text-green-11">
+            <Link href="/news" className="text-green-12 hover:text-green-11">
               News
             </Link>
-            <Link href="signin" className="text-green-12 hover:text-green-11">
+            <Link href="/board" className="text-green-12 hover:text-green-11">
               Board
             </Link>
             <Link href="signin" className="text-green-12 hover:text-green-11">
@@ -45,10 +45,10 @@ function Navbar() {
       <div className="fixed z-50 justify-center hidden w-full md:flex">
         <div className="flex items-center justify-between w-full max-w-4xl px-4 py-2 m-4 mt-5 bg-white rounded-full shadow-md">
           <div className="flex flex-1 gap-4">
-            <Link href="signin" className="text-green-12 hover:text-green-11">
+            <Link href="/news" className="text-green-12 hover:text-green-11">
               News
             </Link>
-            <Link href="signin" className="text-green-12 hover:text-green-11">
+            <Link href="/board" className="text-green-12 hover:text-green-11">
               Board
             </Link>
           </div>
