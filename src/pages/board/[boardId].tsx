@@ -1,5 +1,6 @@
 import { Icon } from "@iconify/react";
 import React from "react";
+import Discuss from "~/components/Discuss";
 import Layout from "~/layout";
 
 function InsideBoard() {
@@ -14,16 +15,36 @@ function InsideBoard() {
         }}
       ></div>
       <div className="container px-4 mx-auto mt-10">
-        <div>
-          <h2 className="text-xl font-bold">ปลูกป่าช่วยชาติ</h2>
-          <div className="flex items-center gap-1 text-sm">
-            <h4>Sornchai Somsakul</h4>
-            <h4>•</h4>
-            <Icon icon="solar:clock-circle-line-duotone" />
-            <h4>5 mins</h4>
+        <h2 className="text-3xl font-bold">ปลูกป่าช่วยชาติ</h2>
+        <div className="flex items-end gap-4 mt-4">
+          <div className="p-1 border-2 rounded-full border-sand-6">
+            <img
+              className="w-8 h-8 rounded-full"
+              src="https://robohash.org/nongnut1.png?set=set4"
+              alt=""
+            />
+          </div>
+          <div>
+            <h4 className="mt-2 text-sm">Created by</h4>
+            <h4 className="text-sm font-medium">Sornchai Somsakul</h4>
           </div>
         </div>
-        <div className="grid grid-cols-12 gap-6 mt-10"></div>
+
+        <h2 className="mt-4 text-lg">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          Necessitatibus maiores voluptatum repellendus doloribus doloremque
+          odio, vel ullam optio quae consequatur sit facilis mollitia.
+          Reprehenderit eos temporibus, magni alias doloribus atque.
+        </h2>
+
+        <hr className="my-4" />
+
+        <h3 className="text-2xl font-medium">Discussions (3)</h3>
+        <div className="flex flex-col gap-4">
+          <Discuss />
+          <Discuss />
+          <Discuss />
+        </div>
       </div>
     </Layout>
   );
