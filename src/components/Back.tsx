@@ -4,17 +4,20 @@ import React from "react";
 import { twMerge } from "tailwind-merge";
 
 interface Props {
-  href: string;
+  href?: string;
   className?: string;
 }
 
 function Back({ href, className }: Props) {
   const router = useRouter();
+  const isCustomHref = href !== undefined;
+
+  const onClick = isCustomHref ? () => router.push(href) : () => router.back();
   return (
     <button
-      onClick={() => router.push(href)}
+      {...{ onClick }}
       className={twMerge(
-        "flex items-center gap-2 text-lg text-sand-11 hover:text-sand-12",
+        "flex items-center w-fit gap-2 text-lg text-sand-11 hover:text-sand-12",
         className
       )}
     >

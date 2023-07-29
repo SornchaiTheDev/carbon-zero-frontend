@@ -1,8 +1,10 @@
 import { Icon } from "@iconify/react";
+import { useRouter } from "next/router";
 import Navbar from "~/components/Navbar";
 import News from "~/components/News";
 import Layout from "~/layout";
 function Home() {
+  const router = useRouter();
   return (
     <Layout withOutNavbar>
       <div
@@ -27,7 +29,10 @@ function Home() {
           <h5 className="text-3xl text-center text-green-12">
             have emitted to atmosphere
           </h5>
-          <button className="px-4 py-2 mt-6 text-center bg-white border-2 rounded-full hover:bg-green-3 border-green-10 text-green-10">
+          <button
+            onClick={() => router.push("/discover")}
+            className="px-4 py-2 mt-6 text-center bg-white border-2 rounded-full hover:bg-green-3 border-green-10 text-green-10"
+          >
             Discover Your Carbon Footprint Now
           </button>
         </div>

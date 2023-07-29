@@ -25,12 +25,12 @@ function InsideNewsPage() {
           </Link>
 
           <div className="mt-6 bg-white rounded-t-3xl">
-            <h4>19 JUNE 2023 • 08:30 AM</h4>
-            <h4 className="w-2/3 mt-2 text-2xl font-bold leading-normal capitalize text-blue-12">
+            <h4 className="text-green-10">19 JUNE 2023 • 08:30 AM</h4>
+            <h4 className="w-2/3 mt-2 text-2xl font-bold leading-normal capitalize text-green-12">
               ปลูกป่าเพื่อโลก
             </h4>
             <div className="flex items-center gap-2 mt-4">
-              <div className="p-2 text-2xl rounded bg-blue-4 text-blue-10 w-fit">
+              <div className="p-2 text-2xl rounded bg-green-4 text-green-10 w-fit">
                 <Icon icon="carbon:location-filled" />
               </div>
               <div>
