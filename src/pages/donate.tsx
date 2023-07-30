@@ -61,7 +61,7 @@ function Donate() {
 
         <div className="container flex flex-wrap flex-1 max-w-6xl px-10 mx-auto my-24 md:my-0 md:mt-32 text-green-12">
           <div className="flex flex-col w-full gap-4 lg:w-2/3">
-            <Back className="my-2 text-sand-1 hover:text-sand-4" />
+            <Back className="my-2 text-sand-12 hover:text-sand-11" />
             <h2 className="text-5xl font-bold">
               How much do you want to donate?
             </h2>
