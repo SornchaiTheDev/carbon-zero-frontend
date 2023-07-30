@@ -36,13 +36,14 @@ function Promptpay() {
 
       if (newRemainingTime <= 0) {
         clearInterval(interval);
+        router.push("/congrats");
       }
     }, 1000);
 
     return () => {
       clearInterval(interval);
     };
-  }, [targetDateTime]);
+  }, [targetDateTime,router]);
 
   function formatTime(timeInSeconds: number) {
     const hours = Math.floor(timeInSeconds / 3600);

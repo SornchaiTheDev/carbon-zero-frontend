@@ -15,12 +15,6 @@ function Payment() {
   const [isError, setIsError] = useState(false);
   const router = useRouter();
 
-  // useEffect(() => {
-  //   if (carbonAmount === 0 || money === 0) {
-  //     router.push("/");
-  //   }
-  // }, [carbonAmount, money, router]);
-
   const handleCheckoutButtonClick = () => {
     if (selected === "promptpay") {
       router.push("payment/promptpay");

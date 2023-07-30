@@ -4,11 +4,12 @@ import React from "react";
 import { twMerge } from "tailwind-merge";
 
 interface Props {
+  title?: string;
   href?: string;
   className?: string;
 }
 
-function Back({ href, className }: Props) {
+function Back({ href, className, title }: Props) {
   const router = useRouter();
   const isCustomHref = href !== undefined;
 
@@ -22,7 +23,7 @@ function Back({ href, className }: Props) {
       )}
     >
       <Icon icon="solar:arrow-left-line-duotone" />
-      Back
+      {!!title ? title : "Back"}
     </button>
   );
 }

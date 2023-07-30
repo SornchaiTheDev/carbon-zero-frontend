@@ -112,6 +112,9 @@ function Navbar() {
                       <h4 className="text-lg font-medium leading-tight text-sand-12">
                         Pariphat Maleekaew
                       </h4>
+                      <h4 className="mt-2 text-sm leading-tight text-sand-11">
+                        {!!session.user ? session.user.email : ""}
+                      </h4>
                     </div>
                     <hr />
 

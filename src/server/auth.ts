@@ -22,11 +22,12 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials, req) {
         if (credentials) {
-          return { id: "1", name: "J Smith", email: "jsmith@example.com" };
-          // return {
-          //   email: credentials.email,
-          //   id: "1",
-          // };
+          
+          return {
+            email: credentials.email,
+            id: "1",
+            name: "Pariphat Maleekaew"
+          };
           // throw new Error("wrong-credential");
         }
         return null;
