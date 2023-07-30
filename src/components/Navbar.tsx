@@ -65,7 +65,7 @@ function Navbar() {
         )}
       </div>
 
-      <div className="fixed z-50 justify-center hidden w-full md:flex">
+      <div className="fixed z-30 justify-center hidden w-full md:flex">
         <div className="flex items-center justify-between w-full max-w-4xl px-4 py-2 m-4 mt-5 bg-white rounded-full shadow-md">
           <div className="flex flex-1 gap-4">
             <Link href="/news" className="text-green-12 hover:text-green-11">
@@ -146,7 +146,7 @@ function Navbar() {
                 href="/signin"
                 className="text-green-12 hover:text-green-11"
               >
-                Sign in
+                Sign In
               </Link>
             )}
           </div>

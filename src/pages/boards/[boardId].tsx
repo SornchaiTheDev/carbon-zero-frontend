@@ -3,6 +3,7 @@ import Link from "next/link";
 import React from "react";
 import Discuss from "~/components/Discuss";
 import Layout from "~/layout";
+import Image from "next/image";
 
 function InsideBoard() {
   return (
@@ -47,8 +48,23 @@ function InsideBoard() {
         </h2>
 
         <hr className="my-4" />
-
-        <h3 className="text-2xl font-medium">Discussions (3)</h3>
+        <div className="flex w-full gap-2 mt-10">
+          <div className="relative rounded-full shadow w-14 h-14 bg-sand-5">
+            <Image
+              src="https://robohash.org/test.png"
+              alt="profile Image"
+              layout="fill"
+            />
+          </div>
+          <div className="flex-1">
+            <h4 className="font-medium">Sornchai Somsakul</h4>
+            <textarea className="block w-full p-2 text-lg border-b-2 outline-none border-green-9" />
+            <button className="px-4 py-2 mt-4 border-2 rounded-full hover:bg-green-3 border-green-10 text-green-10">
+              Comment
+            </button>
+          </div>
+        </div>
+        <h3 className="mt-10 text-2xl font-medium">Discussions (3)</h3>
         <div className="flex flex-col gap-4">
           <Discuss />
           <Discuss />

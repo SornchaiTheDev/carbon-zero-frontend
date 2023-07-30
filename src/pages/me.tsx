@@ -4,6 +4,7 @@ import HistoryCard from "~/components/HistoryCard";
 import Layout from "~/layout";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import Tree from "~/components/Tree";
 
 function Me() {
   const { data: session } = useSession();
@@ -34,6 +35,7 @@ function Me() {
               CO<sub>2</sub>
             </b>
           </h3>
+          <Tree level={2} exp={1000} total={5000} />
         </div>
         <div className="w-full">
           <h3 className="text-2xl font-bold">History</h3>

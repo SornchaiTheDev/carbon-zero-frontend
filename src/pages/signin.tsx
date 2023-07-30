@@ -72,7 +72,7 @@ function Login() {
               Sign In
             </button>
           </form>
-          <div>
+          {/* <div>
             <div className="flex justify-center">
               <div className="flex items-center w-1/2 gap-2">
                 <div className="flex-1 border-t border-sand-6"></div>
@@ -92,13 +92,13 @@ function Login() {
                 <Icon icon="logos:twitter" />
               </button>
             </div>
-            <p className="mt-4 text-center text-sand-11">
-              Don&apos;t have an account?{" "}
-              <Link className="text-green-9" href="signup">
-                Sign up
-              </Link>
-            </p>
-          </div>
+          </div> */}
+          <p className="mt-4 text-center text-sand-11">
+            Don&apos;t have an account?{" "}
+            <Link className="text-green-9" href="signup">
+              Sign up
+            </Link>
+          </p>
         </div>
       </div>
     </div>
