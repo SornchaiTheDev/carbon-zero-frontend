@@ -1,11 +1,15 @@
 import { Icon } from "@iconify/react";
 import Link from "next/link";
-import React from "react";
+import { useState } from "react";
 import Discuss from "~/components/Discuss";
 import Layout from "~/layout";
 import Image from "next/image";
 
 function InsideBoard() {
+  const [comment, setComment] = useState("");
+  const handleOnComment = async () => {
+    setComment("");
+  };
   return (
     <Layout>
       <div
@@ -57,9 +61,16 @@ function InsideBoard() {
             />
           </div>
           <div className="flex-1">
-            <h4 className="font-medium">Sornchai Somsakul</h4>
-            <textarea className="block w-full p-2 text-lg border-b-2 outline-none border-green-9" />
-            <button className="px-4 py-2 mt-4 border-2 rounded-full hover:bg-green-3 border-green-10 text-green-10">
+            <h4 className="font-medium">Pariphat Maleekaew</h4>
+            <textarea
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+              className="block w-full p-2 text-lg border-b-2 outline-none border-green-9"
+            />
+            <button
+              onClick={handleOnComment}
+              className="px-4 py-2 mt-4 border-2 rounded-full hover:bg-green-3 border-green-10 text-green-10"
+            >
               Comment
             </button>
           </div>

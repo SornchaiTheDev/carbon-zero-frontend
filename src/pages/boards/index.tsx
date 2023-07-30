@@ -1,5 +1,5 @@
 import { Icon } from "@iconify/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Back from "~/components/Back";
 import Board from "~/components/Board";
 import Button from "~/components/Button";
@@ -11,13 +11,27 @@ function BoardPage() {
   const [boardName, setBoardName] = useState("");
   const [boardBody, setBoardBody] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   const handleOnAddNewBoard = async () => {
     setIsLoading(true);
+    if (boardName === "" || boardBody === "") {
+      setIsError(true);
+      setIsLoading(false);
+      return;
+    }
     setTimeout(() => {
       setIsLoading(false);
     }, 2000);
   };
+
+  useEffect(() => {
+    setIsError(false);
+  }, [isOpen]);
+
+  const isTitleError = isError && boardName === "";
+  const isBodyError = isError && boardBody === "";
+
   return (
     <>
       <Modal
@@ -37,6 +51,9 @@ function BoardPage() {
               onChange={(e) => setBoardName(e.target.value)}
               className="w-full p-2 mt-1 text-lg border rounded-lg boder-sand-11"
             />
+            {isTitleError && (
+              <p className="text-red-9">Title cannot be empty</p>
+            )}
           </div>
           <div>
             <label htmlFor="BoardBody" className="text-sand-12">
@@ -49,6 +66,7 @@ function BoardPage() {
               rows={5}
               className="w-full p-2 mt-1 text-lg border rounded-lg boder-sand-11"
             />
+            {isBodyError && <p className="text-red-9">Body cannot be empty</p>}
           </div>
           <Button onClick={handleOnAddNewBoard} {...{ isLoading }}>
             Add new Board
