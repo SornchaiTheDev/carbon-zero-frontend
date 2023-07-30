@@ -1,16 +1,32 @@
 "use client";
 import { Icon } from "@iconify/react";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { signIn, useSession } from "next-auth/react";
 
 function Login() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { data: session } = useSession();
+  const { query } = useRouter();
+
+  // useEffect(() => {
+  //   if (session) {
+  //     router.push("/");
+  //   }
+  // }, [router, session]);
 
   const handleOnSubmit = (e: FormEvent) => {
     e.preventDefault();
+    signIn("credentials", {
+      email,
+      password,
+      callbackUrl: `${
+        query.callbackUrl ? query.callbackUrl : window.location.origin
+      }`,
+    });
   };
   return (
     <div
@@ -46,6 +62,7 @@ function Login() {
               </label>
               <input
                 id="password"
+                type="password"
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full p-2 mt-1 text-lg border rounded-lg boder-sand-11"
                 placeholder="•••••••••••"

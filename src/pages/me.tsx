@@ -1,9 +1,18 @@
 import { Icon } from "@iconify/react/dist/iconify.js";
-import React from "react";
+import React, { useEffect } from "react";
 import HistoryCard from "~/components/HistoryCard";
 import Layout from "~/layout";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
 function Me() {
+  const { data: session } = useSession();
+  const router = useRouter();
+  useEffect(() => {
+    if (!session) {
+      router.push("/signin");
+    }
+  }, [session, router]);
   return (
     <Layout className="">
       <div

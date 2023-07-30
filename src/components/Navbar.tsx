@@ -2,9 +2,13 @@ import { useState } from "react";
 import Link from "next/link";
 import { Icon } from "@iconify/react";
 import Image from "next/image";
+import * as Popover from "@radix-ui/react-popover";
+import { signOut, useSession } from "next-auth/react";
 
 function Navbar() {
+  const { data: session } = useSession();
   const [isOpen, setIsOpen] = useState(false);
+  const [isSignIn, setIsSignIn] = useState(false);
   return (
     <div className="w-full">
       <div className="fixed z-50 block w-full md:hidden">
@@ -30,12 +34,27 @@ function Navbar() {
             <Link href="/boards" className="text-green-12 hover:text-green-11">
               Board
             </Link>
-            <Link href="" className="text-green-12 hover:text-green-11">
-              SornchaiTheDev
-            </Link>
-            <Link href="/signin" className="text-green-12 hover:text-green-11">
-              Sign in
-            </Link>
+            {!!session ? (
+              <>
+                <Link href="/me" className="text-green-12 hover:text-green-11">
+                  Profile
+                </Link>
+                <button
+                  onClick={() => signOut()}
+                  className="flex items-center gap-2 px-6 py-2 w-fit text-red-9 hover:text-red-11"
+                >
+                  Sign Out
+                  <Icon icon="solar:login-2-line-duotone" />
+                </button>
+              </>
+            ) : (
+              <Link
+                href="/signin"
+                className="text-green-12 hover:text-green-11"
+              >
+                Sign in
+              </Link>
+            )}
             <Link
               href="/donate"
               className="px-4 py-2 border-2 rounded-full hover:bg-green-3 border-green-10 text-green-10"
@@ -63,27 +82,70 @@ function Navbar() {
             />
           </Link>
           <div className="flex items-center justify-end flex-1 gap-4">
-            {/* <Link href="/signin" className="text-green-12 hover:text-green-11">
-              Sign in
-            </Link> */}
             <Link
               href="/donate"
               className="px-4 py-2 border-2 rounded-full hover:bg-green-3 border-green-10 text-green-10"
             >
               Start Donate
             </Link>
-            <Link
-              href="/me"
-              className="font-medium text-green-12 hover:text-green-11"
-            >
-              <div className="relative w-10 h-10 rounded-full shadow bg-sand-5">
-                <Image
-                  src="https://robohash.org/test.png"
-                  alt="profile Image"
-                  layout="fill"
-                />
-              </div>
-            </Link>
+
+            {!!session ? (
+              <Popover.Root>
+                <Popover.Trigger asChild>
+                  <button className="min-h-[40px] min-w-[40px] overflow-hidden rounded-full bg-sand-6">
+                    <div className="relative w-10 h-10 rounded-full shadow bg-sand-5">
+                      <Image
+                        src="https://robohash.org/test.png"
+                        alt="profile Image"
+                        layout="fill"
+                      />
+                    </div>
+                  </button>
+                </Popover.Trigger>
+                <Popover.Portal>
+                  <Popover.Content
+                    className="flex min-w-[12rem] flex-col gap-2 rounded-lg bg-white pb-2 shadow-md"
+                    sideOffset={14}
+                    align="end"
+                  >
+                    <div className="px-6 pt-4">
+                      <h4 className="text-lg font-medium leading-tight text-sand-12">
+                        Pariphat Maleekaew
+                      </h4>
+                    </div>
+                    <hr />
+
+                    <div>
+                      <Link
+                        className="flex items-center justify-between w-full px-6 py-2 text-sand-11 hover:bg-sand-4 hover:text-sand-12"
+                        href="/me"
+                      >
+                        Profile
+                        <Icon icon="solar:user-rounded-line-duotone" />
+                      </Link>
+                    </div>
+                    <div>
+                      <button
+                        onClick={() => signOut()}
+                        className="flex items-center justify-between w-full px-6 py-2 text-sand-11 hover:bg-sand-4 hover:text-sand-12"
+                      >
+                        Sign Out
+                        <Icon icon="solar:login-2-line-duotone" />
+                      </button>
+                    </div>
+
+                    <Popover.Arrow className="fill-sand-3" />
+                  </Popover.Content>
+                </Popover.Portal>
+              </Popover.Root>
+            ) : (
+              <Link
+                href="/signin"
+                className="text-green-12 hover:text-green-11"
+              >
+                Sign in
+              </Link>
+            )}
           </div>
         </div>
       </div>
