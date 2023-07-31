@@ -1,7 +1,7 @@
 import { Icon } from "@iconify/react";
 import { useEffect, useState } from "react";
 import { useLocalStorage } from "usehooks-ts";
-import { User } from "~/Types/User";
+import { TUser } from "~/Types/User";
 import Back from "~/components/Back";
 import Board from "~/components/Board";
 import Button from "~/components/Button";
@@ -16,7 +16,7 @@ function BoardPage() {
   const [boardBody, setBoardBody] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
-  const [user, setUser] = useLocalStorage<User | null>("user", null);
+  const [user, setUser] = useLocalStorage<TUser | null>("user", null);
 
   const handleOnAddNewBoard = async () => {
     setIsLoading(true);

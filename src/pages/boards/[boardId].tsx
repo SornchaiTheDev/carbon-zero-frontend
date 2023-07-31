@@ -8,7 +8,7 @@ import { api } from "~/utils";
 import { Board } from "~/Types/Board";
 import { useRouter } from "next/router";
 import { useLocalStorage } from "usehooks-ts";
-import { User } from "~/Types/User";
+import { TUser } from "~/Types/User";
 
 type Discussion = {
   id: number;
@@ -22,7 +22,7 @@ type Discussion = {
 function InsideBoard() {
   const [board, setBoard] = useState<Board | null>(null);
   const [owner, setOwner] = useState<string | null>(null);
-  const [user, setUser] = useLocalStorage<User | null>("user", null);
+  const [user, setUser] = useLocalStorage<TUser | null>("user", null);
   const [discussions, setDiscussions] = useState<Discussion[]>([]);
   const [comment, setComment] = useState("");
   const router = useRouter();

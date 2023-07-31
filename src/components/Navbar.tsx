@@ -6,7 +6,7 @@ import * as Popover from "@radix-ui/react-popover";
 import { useLocalStorage } from "usehooks-ts";
 import { api } from "~/utils";
 import jwt_decode from "jwt-decode";
-import { User } from "~/Types/User";
+import { TUser } from "~/Types/User";
 
 type accessToken = {
   sub: string;
@@ -14,7 +14,7 @@ type accessToken = {
 
 function Navbar() {
   const [accesstoken, setAccessToken] = useLocalStorage("accesstoken", null);
-  const [user, setUser] = useLocalStorage<User | null>("user", null);
+  const [user, setUser] = useLocalStorage<TUser | null>("user", null);
   const [isOpen, setIsOpen] = useState(false);
 
   const signOut = () => {
