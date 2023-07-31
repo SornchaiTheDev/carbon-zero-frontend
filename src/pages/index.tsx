@@ -1,10 +1,22 @@
 import { Icon } from "@iconify/react";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { TNews } from "~/Types/News";
 import Navbar from "~/components/Navbar";
 import News from "~/components/News";
 import Layout from "~/layout";
+import { api } from "~/utils";
 function Home() {
   const router = useRouter();
+  const [news, setNews] = useState<TNews[]>([]);
+
+  useEffect(() => {
+    const fetchNews = async () => {
+      const _news = await api.get("/news");
+      setNews(_news.data as TNews[]);
+    };
+    fetchNews();
+  });
   return (
     <Layout withOutNavbar>
       <div
@@ -128,11 +140,21 @@ function Home() {
         <section className="container p-4 m-4 mx-auto">
           <h5 className="text-lg text-sand-9">News</h5>
           <h2 className="text-3xl font-bold md:w-1/3">Carbon</h2>
-          <div className="grid grid-cols-12 gap-6 mt-10">
-            <News title="Test" href="/news/1" />
-            <News title="Test" href="/news/1" />
-            <News title="Test" href="/news/1" />
-          </div>
+          {news.length > 0 ? (
+            <div className="grid grid-cols-12 gap-6 mt-10">
+              {news.map(({ title, id, description }, i) => (
+                <News
+                  key={i}
+                  id={id}
+                  title={title}
+                  description={description}
+                  href={`/news/${id}`}
+                />
+              ))}
+            </div>
+          ) : (
+            <h4>Loading...</h4>
+          )}
         </section>
       </main>
     </Layout>

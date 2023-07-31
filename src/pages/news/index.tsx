@@ -3,16 +3,9 @@ import News from "~/components/News";
 import Layout from "~/layout";
 import { useEffect, useState } from "react";
 import { api } from "~/utils";
+import { TNews } from "~/Types/News";
 
-type TNews = {
-  id: number;
-  title: string;
-  location: string;
-  description: string;
-  join_detail: string;
-  owner_id: number;
-  created_at: string;
-};
+
 
 function NewsPage() {
   const [news, setNews] = useState<TNews[]>([]);
