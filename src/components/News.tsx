@@ -30,7 +30,13 @@ function News({
     >
       <div className="absolute bottom-0 w-full p-4 bg-sand-2">
         <h3 className="text-lg font-bold">{title}</h3>
-        {!!description && <p>{description.slice(0, 50)}</p>}
+        {!!description && (
+          <p>
+            {description.length > 100
+              ? description.slice(0, 100) + "..."
+              : description}
+          </p>
+        )}
 
         <Link
           {...{ href }}
