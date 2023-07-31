@@ -20,6 +20,7 @@
     "eslint": "8.45.0",
     "eslint-config-next": "13.4.12",
     "framer-motion": "^10.15.0",
+    "jwt-decode": "^3.1.2",
     "next": "13.4.12",
     "next-auth": "^4.22.3",
     "next-seo": "^6.1.0",
@@ -31,6 +32,7 @@
     "tailwind-merge": "^1.14.0",
     "tailwindcss": "3.3.3",
     "typescript": "5.1.6",
+    "universal-cookie": "^4.0.4",
     "usehooks-ts": "^2.9.1",
     "windy-radix-palette": "^0.6.1",
     "zustand": "^4.3.9"

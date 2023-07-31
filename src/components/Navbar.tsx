@@ -1,14 +1,38 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Icon } from "@iconify/react";
 import Image from "next/image";
 import * as Popover from "@radix-ui/react-popover";
-import { signOut, useSession } from "next-auth/react";
+import { useLocalStorage } from "usehooks-ts";
+import { api } from "~/utils";
+import jwt_decode from "jwt-decode";
+import { User } from "~/Types/user";
+
+type accessToken = {
+  sub: string;
+};
 
 function Navbar() {
-  const { data: session } = useSession();
+  const [accesstoken, setAccessToken] = useLocalStorage("accesstoken", null);
+  const [user, setUser] = useLocalStorage<User | null>("user", null);
   const [isOpen, setIsOpen] = useState(false);
-  const [isSignIn, setIsSignIn] = useState(false);
+
+  const signOut = () => {
+    setAccessToken(null);
+    setUser(null);
+  };
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      if (!accesstoken) return;
+      if (user) return;
+      const _user: accessToken = jwt_decode(accesstoken);
+      const res = await api.get(`/users/${_user.sub}`);
+      setUser(res.data);
+    };
+
+    fetchUser();
+  }, [accesstoken, user, setUser]);
   return (
     <div className="w-full">
       <div className="fixed z-50 block w-full md:hidden">
@@ -34,7 +58,7 @@ function Navbar() {
             <Link href="/boards" className="text-green-12 hover:text-green-11">
               Board
             </Link>
-            {!!session ? (
+            {!!accesstoken ? (
               <>
                 <Link href="/me" className="text-green-12 hover:text-green-11">
                   Profile
@@ -52,7 +76,7 @@ function Navbar() {
                 href="/signin"
                 className="text-green-12 hover:text-green-11"
               >
-                Sign in
+                Sign in / SignUp
               </Link>
             )}
             <Link
@@ -89,7 +113,7 @@ function Navbar() {
               Start Donate
             </Link>
 
-            {!!session ? (
+            {!!accesstoken ? (
               <Popover.Root>
                 <Popover.Trigger asChild>
                   <button className="min-h-[40px] min-w-[40px] overflow-hidden rounded-full bg-sand-6">
@@ -110,10 +134,10 @@ function Navbar() {
                   >
                     <div className="px-6 pt-4">
                       <h4 className="text-lg font-medium leading-tight text-sand-12">
-                        Pariphat Maleekaew
+                        {!!user && user.name + " " + user.lastname}
                       </h4>
                       <h4 className="mt-2 text-sm leading-tight text-sand-11">
-                        {!!session.user ? session.user.email : ""}
+                        {!!user && user.email}
                       </h4>
                     </div>
                     <hr />
@@ -146,7 +170,7 @@ function Navbar() {
                 href="/signin"
                 className="text-green-12 hover:text-green-11"
               >
-                Sign In
+                Sign In / SignUp
               </Link>
             )}
           </div>

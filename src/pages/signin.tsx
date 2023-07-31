@@ -1,32 +1,32 @@
-"use client";
 import { Icon } from "@iconify/react";
 import { FormEvent, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { signIn, useSession } from "next-auth/react";
+import { api } from "~/utils";
+import { useLocalStorage } from "usehooks-ts";
 
 function Login() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { data: session } = useSession();
-  const { query } = useRouter();
+  const [isError, setIsError] = useState(false);
 
-  // useEffect(() => {
-  //   if (session) {
-  //     router.push("/");
-  //   }
-  // }, [router, session]);
+  const [_, setAccessToken] = useLocalStorage("accesstoken", null);
 
-  const handleOnSubmit = (e: FormEvent) => {
+  const handleOnSubmit = async (e: FormEvent) => {
+    setIsError(false);
+
     e.preventDefault();
-    signIn("credentials", {
-      email,
-      password,
-      callbackUrl: `${
-        query.callbackUrl ? query.callbackUrl : window.location.origin
-      }`,
-    });
+    try {
+      const res = await api.post("login", null, {
+        params: { email, password },
+      });
+
+      setAccessToken(res.data.access_token);
+      router.push("/");
+    } catch (err) {
+      setIsError(true);
+    }
   };
   return (
     <div
@@ -42,6 +42,7 @@ function Login() {
           Back
         </button>
         <h2 className="mt-2 text-2xl font-bold">Sign In</h2>
+        {isError && <h6 className="text-red-9">Invalid email or password</h6>}
         <div className="flex flex-col gap-4 mt-4">
           <form onSubmit={handleOnSubmit}>
             <div>
@@ -51,6 +52,7 @@ function Login() {
               <input
                 id="email"
                 type="email"
+                value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full p-2 mt-1 text-lg border rounded-lg boder-sand-11"
                 placeholder="Email"
@@ -63,6 +65,7 @@ function Login() {
               <input
                 id="password"
                 type="password"
+                value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full p-2 mt-1 text-lg border rounded-lg boder-sand-11"
                 placeholder="•••••••••••"

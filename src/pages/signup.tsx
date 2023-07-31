@@ -13,21 +13,26 @@ function SignUp() {
   const [lastname, setLastName] = useState("");
   const [mobilePhone, setMobilePhone] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   const handleOnSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    setIsError(false);
+
     if (!email || !password || !firstName || !lastname || !mobilePhone) return;
     try {
       setIsLoading(true);
-      const res = await api.post("users", {
+      await api.post("users", {
         email,
         password,
         name: firstName,
         lastname,
         mobile_phone: mobilePhone,
       });
-      console.log(res);
-    } catch (err) {}
+      router.push("/signin");
+    } catch (err) {
+      setIsError(true);
+    }
     setIsLoading(false);
   };
 
@@ -53,6 +58,7 @@ function SignUp() {
           Back
         </button>
         <h2 className="mt-2 text-2xl font-bold">Sign Up</h2>
+        {isError && <h6 className="text-red-9">Email already registered</h6>}
         <div className="flex flex-col gap-4 mt-4">
           <form className="flex flex-col gap-2" onSubmit={handleOnSubmit}>
             <div>

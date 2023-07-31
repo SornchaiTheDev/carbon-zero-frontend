@@ -8,12 +8,11 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { useCheckoutStore } from "~/store";
 import { useRouter } from "next/router";
-import { useSession } from "next-auth/react";
+import { useLocalStorage } from "usehooks-ts";
 
 dayjs.extend(relativeTime);
 
 function Promptpay() {
-  const { data: session } = useSession();
   const router = useRouter();
   const money = useCheckoutStore((state) => state.money);
   const targetDateTime = useMemo(() => dayjs().add(10, "seconds"), []);
@@ -23,10 +22,10 @@ function Promptpay() {
   );
 
   useEffect(() => {
-    if (money === 0 || !session) {
+    if (money === 0) {
       router.push("/");
     }
-  }, [money, router, session]);
+  }, [money, router]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -43,7 +42,7 @@ function Promptpay() {
     return () => {
       clearInterval(interval);
     };
-  }, [targetDateTime,router]);
+  }, [targetDateTime, router]);
 
   function formatTime(timeInSeconds: number) {
     const hours = Math.floor(timeInSeconds / 3600);

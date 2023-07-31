@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Layout from "~/layout";
-import Image from "next/image";
 import PaymentMethod from "~/components/PaymentMethod";
 import Back from "~/components/Back";
 import { useRouter } from "next/router";
@@ -22,6 +21,7 @@ function Payment() {
       setIsError(true);
     }
   };
+
   return (
     <Layout className="flex flex-col h-screen">
       <div className="container flex flex-wrap flex-1 max-w-6xl px-10 mx-auto mt-24 md:mt-40 text-green-12">

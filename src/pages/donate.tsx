@@ -6,14 +6,12 @@ import Layout from "~/layout";
 import { formatNumberWithCommas } from "~/utils";
 import { useCheckoutStore } from "~/store";
 import { twMerge } from "tailwind-merge";
-import { useSession } from "next-auth/react";
 
 function Donate() {
   const [carbonAmount, setAmountInBaht, setCarbonAmount] = useCheckoutStore(
     (state) => [state.carbonAmount, state.setMoney, state.setCarbonAmount]
   );
 
-  const { data: session } = useSession();
   const router = useRouter();
   const [amount, setAmount] = useState("");
 

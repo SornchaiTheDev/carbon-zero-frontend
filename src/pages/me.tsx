@@ -2,18 +2,22 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 import React, { useEffect } from "react";
 import HistoryCard from "~/components/HistoryCard";
 import Layout from "~/layout";
-import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import Tree from "~/components/Tree";
+import { useLocalStorage } from "usehooks-ts";
+import { User } from "~/Types/user";
 
 function Me() {
-  const { data: session } = useSession();
-  const router = useRouter();
-  useEffect(() => {
-    if (!session) {
-      router.push("/signin");
-    }
-  }, [session, router]);
+  const [user, setUser] = useLocalStorage<User | null>("user", null);
+
+  // const router = useRouter();
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     if (!!user) {
+  //       router.push("/signin");
+  //     }
+  //   }, 3000);
+  // }, [router, user]);
   return (
     <Layout className="">
       <div
@@ -27,7 +31,9 @@ function Me() {
       <div className="container flex flex-wrap gap-10 p-10 mx-auto">
         <div className="">
           <h3 className="text-lg">Hi.</h3>
-          <h2 className="text-2xl font-bold">Pariphat Maleekaew</h2>
+          <h2 className="text-2xl font-bold">
+            {!!user && user.name + " " + user.lastname}
+          </h2>
 
           <h3 className="mt-2 text-2xl">
             You have compensate <b>10</b> kgs of{" "}
