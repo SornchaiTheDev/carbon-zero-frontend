@@ -1,44 +1,34 @@
 import { Icon } from "@iconify/react";
 import Link from "next/link";
-import React from "react";
-
-function Board() {
+import { useState, useEffect } from "react";
+import { api } from "~/utils";
+interface Props {
+  id: number;
+  title: string;
+  owner_id: number;
+  body: string;
+}
+function Board({ id, title, owner_id, body }: Props) {
+  const [owner, setOwner] = useState<string | null>(null);
+  useEffect(() => {
+    const fetchUser = async () => {
+      const user = await api.get(`users/${owner_id}`);
+      setOwner(user.data.name + " " + user.data.lastname);
+    };
+    fetchUser();
+  }, [owner_id]);
   return (
     <Link
-      href="/boards/1"
+      href={`/boards/${id}`}
       className="flex flex-col col-span-12 gap-2 p-4 bg-white rounded-lg shadow sm:col-span-6 lg:col-span-4"
     >
       <div>
-        <h2 className="text-xl font-bold">ปลูกป่าช่วยชาติ</h2>
+        <h2 className="text-xl font-bold">{title}</h2>
         <div className="flex items-center gap-1 text-sm">
-          <h4>Sornchai Somsakul</h4>
-          <h4>•</h4>
-          <Icon icon="solar:clock-circle-line-duotone" />
-          <h4>5 mins</h4>
+          <h4>{owner === null ? "Loading..." : owner}</h4>
         </div>
       </div>
-      <div className="flex -space-x-4">
-        <img
-          className="w-10 h-10 border-2 border-white rounded-full dark:border-gray-800"
-          src="https://robohash.org/nongnut1.png?set=set4"
-          alt=""
-        />
-        <img
-          className="w-10 h-10 border-2 border-white rounded-full dark:border-gray-800"
-          src="https://robohash.org/nongnut2.png?set=set4"
-          alt=""
-        />
-        <img
-          className="w-10 h-10 border-2 border-white rounded-full dark:border-gray-800"
-          src="https://robohash.org/nongnut3.png?set=set4"
-          alt=""
-        />
-        <img
-          className="w-10 h-10 border-2 border-white rounded-full dark:border-gray-800"
-          src="https://robohash.org/nongnut4.png?set=set4"
-          alt=""
-        />
-      </div>
+      <p>{body}</p>
     </Link>
   );
 }

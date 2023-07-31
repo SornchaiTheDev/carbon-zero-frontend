@@ -1,10 +1,14 @@
 import { Icon } from "@iconify/react";
 import { useEffect, useState } from "react";
+import { useLocalStorage } from "usehooks-ts";
+import { User } from "~/Types/User";
 import Back from "~/components/Back";
 import Board from "~/components/Board";
 import Button from "~/components/Button";
 import Modal from "~/components/Modal";
 import Layout from "~/layout";
+import { api } from "~/utils";
+import type { Board as BoardType } from "~/Types/Board";
 
 function BoardPage() {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,6 +16,7 @@ function BoardPage() {
   const [boardBody, setBoardBody] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
+  const [user, setUser] = useLocalStorage<User | null>("user", null);
 
   const handleOnAddNewBoard = async () => {
     setIsLoading(true);
@@ -20,9 +25,22 @@ function BoardPage() {
       setIsLoading(false);
       return;
     }
-    setTimeout(() => {
+
+    try {
+      await api.post("/boards", {
+        title: boardName,
+        body: boardBody,
+        owner_id: user?.id,
+      });
+
+      setIsOpen(false);
+      setBoardName("");
+      setBoardBody("");
       setIsLoading(false);
-    }, 2000);
+      fetchNews();
+    } catch (err) {
+      setIsError(true);
+    }
   };
 
   useEffect(() => {
@@ -31,6 +49,15 @@ function BoardPage() {
 
   const isTitleError = isError && boardName === "";
   const isBodyError = isError && boardBody === "";
+
+  const [boards, setBoards] = useState<BoardType[]>([]);
+  const fetchNews = async () => {
+    const _news = await api.get("/boards");
+    setBoards(_news.data as BoardType[]);
+  };
+  useEffect(() => {
+    fetchNews();
+  }, []);
 
   return (
     <>
@@ -94,18 +121,15 @@ function BoardPage() {
               New board
             </button>
           </div>
-          <div className="grid grid-cols-12 gap-6 mt-10">
-            <Board />
-            <Board />
-            <Board />
-            <Board />
-            <Board />
-            <Board />
-            <Board />
-            <Board />
-            <Board />
-            <Board />
-          </div>
+          {boards.length > 0 ? (
+            <div className="grid grid-cols-12 gap-6 mt-10">
+              {boards.map(({ id, title, owner_id, body }) => (
+                <Board key={title} {...{ id, title, owner_id, body }} />
+              ))}
+            </div>
+          ) : (
+            <h4>Boards are empty.</h4>
+          )}
         </div>
       </Layout>
     </>

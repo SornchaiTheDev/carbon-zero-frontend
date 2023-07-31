@@ -1,30 +1,50 @@
 import { Icon } from "@iconify/react";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { api } from "~/utils";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+import Image from "next/image";
 
-function Discuss() {
+dayjs.extend(relativeTime);
+
+type TDiscuss = {
+  id: number;
+  body: string;
+  owner_id: number;
+  board_id: number;
+  details: string[];
+  created_at: string;
+};
+
+function Discuss({ body, owner_id, created_at }: TDiscuss) {
+  const [owner, setOwner] = useState<string | null>(null);
+  const post_at = dayjs().from(created_at);
+  const fetchAuthor = async (userId: number) => {
+    const res = await api.get(`users/${userId}`);
+    setOwner(res.data.name + " " + res.data.lastname);
+  };
+
+  useEffect(() => {
+    fetchAuthor(owner_id);
+  }, [owner_id]);
   return (
     <div className="">
       <div className="flex items-center gap-2 mt-4">
-        <div className="p-1 border-2 rounded-full border-sand-6">
-          <img
-            className="w-8 h-8 rounded-full"
-            src="https://robohash.org/nongnut1.png?set=set4"
-            alt=""
+        <div className="relative w-10 h-10 rounded-full shadow bg-sand-5">
+          <Image
+            src="https://robohash.org/test.png"
+            alt="profile Image"
+            layout="fill"
           />
         </div>
         <div>
-          <h4 className="font-medium">Sornchai Somsakul</h4>
-          <h5 className="text-sm">2 minutes ago</h5>
+          <h4 className="font-medium">{owner}</h4>
+          <h5 className="text-sm">{post_at}</h5>
         </div>
       </div>
-      <h2 className="mt-4 text-lg">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus
-        maiores voluptatum repellendus doloribus doloremque odio, vel ullam
-        optio quae consequatur sit facilis mollitia. Reprehenderit eos
-        temporibus, magni alias doloribus atque.
-      </h2>
+      <h2 className="mt-4 text-lg">{body}</h2>
 
-      <div className="flex items-center gap-2 mt-4">
+      {/* <div className="flex items-center gap-2 mt-4">
         <button className="flex items-center gap-2 p-2 px-4 rounded-lg bg-sand-3 text-sand-12 hover:text-sand-10">
           <Icon icon="solar:like-bold-duotone" />
           Like
@@ -37,8 +57,8 @@ function Discuss() {
             <span>(0)</span>
           </button>
         </div>
-      </div>
-      <hr className="mt-6"/>
+      </div> */}
+      <hr className="mt-6" />
     </div>
   );
 }

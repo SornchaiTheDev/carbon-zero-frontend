@@ -1,15 +1,67 @@
 import { Icon } from "@iconify/react";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Discuss from "~/components/Discuss";
 import Layout from "~/layout";
 import Image from "next/image";
+import { api } from "~/utils";
+import { Board } from "~/Types/Board";
+import { useRouter } from "next/router";
+import { useLocalStorage } from "usehooks-ts";
+import { User } from "~/Types/User";
+
+type Discussion = {
+  id: number;
+  body: string;
+  owner_id: number;
+  board_id: number;
+  details: string[];
+  created_at: string;
+};
 
 function InsideBoard() {
+  const [board, setBoard] = useState<Board | null>(null);
+  const [owner, setOwner] = useState<string | null>(null);
+  const [user, setUser] = useLocalStorage<User | null>("user", null);
+  const [discussions, setDiscussions] = useState<Discussion[]>([]);
   const [comment, setComment] = useState("");
+  const router = useRouter();
+  const { boardId } = router.query;
+
   const handleOnComment = async () => {
+    if (comment === "") return;
+    try {
+      await api.post(`boards/${boardId}/discussion`, {
+        body: comment,
+        owner_id: user?.id,
+      });
+      const res = await api.get(`boards/${boardId}/discussions`);
+      setDiscussions(res.data);
+    } catch (err) {}
+
     setComment("");
   };
+  const fetchAuthor = async (userId: number) => {
+    const res = await api.get(`users/${userId}`);
+    setOwner(res.data.name + " " + res.data.lastname);
+  };
+
+  useEffect(() => {
+    const fetchBoard = async () => {
+      const res = await api.get(`boards/${boardId}`);
+      fetchAuthor(res.data.owner_id);
+      setBoard(res.data);
+    };
+    fetchBoard();
+  }, [boardId]);
+
+  useEffect(() => {
+    const fetchDisscussions = async () => {
+      const res = await api.get(`boards/${boardId}/discussions`);
+      setDiscussions(res.data);
+    };
+    fetchDisscussions();
+  }, [boardId]);
   return (
     <Layout>
       <div
@@ -29,31 +81,26 @@ function InsideBoard() {
           <Icon icon="solar:arrow-left-line-duotone" />
           <h4>Back</h4>
         </Link>
-        <h2 className="text-3xl font-bold">ปลูกป่าช่วยชาติ</h2>
+        <h2 className="text-3xl font-bold">{board?.title}</h2>
         <div className="flex items-end gap-4 mt-4">
-          <div className="p-1 border-2 rounded-full border-sand-6">
-            <img
-              className="w-8 h-8 rounded-full"
-              src="https://robohash.org/nongnut1.png?set=set4"
-              alt=""
+          <div className="relative w-10 h-10 rounded-full shadow bg-sand-5">
+            <Image
+              src="https://robohash.org/test.png"
+              alt="profile Image"
+              layout="fill"
             />
           </div>
           <div>
             <h4 className="mt-2 text-sm">Created by</h4>
-            <h4 className="text-sm font-medium">Sornchai Somsakul</h4>
+            <h4 className="text-sm font-medium">{owner}</h4>
           </div>
         </div>
 
-        <h2 className="mt-4 text-lg">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Necessitatibus maiores voluptatum repellendus doloribus doloremque
-          odio, vel ullam optio quae consequatur sit facilis mollitia.
-          Reprehenderit eos temporibus, magni alias doloribus atque.
-        </h2>
+        <h2 className="mt-4 text-lg">{board?.body}</h2>
 
         <hr className="my-4" />
         <div className="flex w-full gap-2 mt-10">
-          <div className="relative rounded-full shadow w-14 h-14 bg-sand-5">
+          <div className="relative w-10 h-10 rounded-full shadow bg-sand-5">
             <Image
               src="https://robohash.org/test.png"
               alt="profile Image"
@@ -61,7 +108,9 @@ function InsideBoard() {
             />
           </div>
           <div className="flex-1">
-            <h4 className="font-medium">Pariphat Maleekaew</h4>
+            {!!user && (
+              <h4 className="font-medium">{user?.name + user?.lastname}</h4>
+            )}
             <textarea
               value={comment}
               onChange={(e) => setComment(e.target.value)}
@@ -75,12 +124,23 @@ function InsideBoard() {
             </button>
           </div>
         </div>
-        <h3 className="mt-10 text-2xl font-medium">Discussions (3)</h3>
-        <div className="flex flex-col gap-4">
-          <Discuss />
-          <Discuss />
-          <Discuss />
-        </div>
+        <h3 className="mt-10 text-2xl font-medium">
+          Discussions ({discussions.length})
+        </h3>
+        {discussions.length === 0 ? (
+          <h4 className="text-lg">No discussion yet</h4>
+        ) : (
+          <div className="flex flex-col gap-4">
+            {discussions.map(
+              ({ board_id, body, created_at, details, id, owner_id }) => (
+                <Discuss
+                  key={id}
+                  {...{ owner_id, created_at, body, details, id, board_id }}
+                />
+              )
+            )}
+          </div>
+        )}
       </div>
     </Layout>
   );
