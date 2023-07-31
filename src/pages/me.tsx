@@ -5,7 +5,7 @@ import Layout from "~/layout";
 import { useRouter } from "next/router";
 import Tree from "~/components/Tree";
 import { useLocalStorage } from "usehooks-ts";
-import { TUser } from "~/Types/User";
+import { TUser } from "~/Types/Users";
 
 function Me() {
   const [user, setUser] = useLocalStorage<TUser | null>("user", null);

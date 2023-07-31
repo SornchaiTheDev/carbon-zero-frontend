@@ -1,7 +1,7 @@
 import { Icon } from "@iconify/react";
 import { useEffect, useState } from "react";
 import { useLocalStorage } from "usehooks-ts";
-import { TUser } from "~/Types/User";
+import { TUser } from "~/Types/Users";
 import Back from "~/components/Back";
 import Board from "~/components/Board";
 import Button from "~/components/Button";

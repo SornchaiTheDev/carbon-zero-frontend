@@ -8,7 +8,7 @@ import { api } from "~/utils";
 import { Board } from "~/Types/Board";
 import { useRouter } from "next/router";
 import { useLocalStorage } from "usehooks-ts";
-import { TUser } from "~/Types/User";
+import { TUser } from "~/Types/Users";
 
 type Discussion = {
   id: number;

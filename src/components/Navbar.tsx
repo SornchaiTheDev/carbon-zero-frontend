@@ -6,7 +6,7 @@ import * as Popover from "@radix-ui/react-popover";
 import { useLocalStorage } from "usehooks-ts";
 import { api } from "~/utils";
 import jwt_decode from "jwt-decode";
-import { TUser } from "~/Types/User";
+import { TUser } from "~/Types/Users";
 
 type accessToken = {
   sub: string;
