@@ -4,7 +4,7 @@ import Layout from "~/layout";
 import { useEffect, useState } from "react";
 import { api } from "~/utils";
 
-type News = {
+type TNews = {
   id: number;
   title: string;
   location: string;
@@ -15,11 +15,11 @@ type News = {
 };
 
 function NewsPage() {
-  const [news, setNews] = useState<News[]>([]);
+  const [news, setNews] = useState<TNews[]>([]);
   useEffect(() => {
     const fetchNews = async () => {
       const _news = await api.get("/news");
-      setNews(_news.data as News[]);
+      setNews(_news.data as TNews[]);
     };
     fetchNews();
   });
@@ -39,8 +39,14 @@ function NewsPage() {
 
         {news.length > 0 ? (
           <div className="grid grid-cols-12 gap-6 mt-10">
-            {news.map((_, i) => (
-              <News key={i} title="Test" href="/news/1" />
+            {news.map(({ title, id, description }, i) => (
+              <News
+                key={i}
+                id={id}
+                title={title}
+                description={description}
+                href={`/news/${id}`}
+              />
             ))}
           </div>
         ) : (
