@@ -58,10 +58,17 @@ function Navbar() {
             <Link href="/boards" className="text-green-12 hover:text-green-11">
               Board
             </Link>
+
             {!!accesstoken ? (
               <>
                 <Link href="/me" className="text-green-12 hover:text-green-11">
                   Profile
+                </Link>
+                <Link
+                  href="/coupons"
+                  className="text-green-12 hover:text-green-11"
+                >
+                  Promotions / Coupons
                 </Link>
                 <button
                   onClick={() => signOut()}
@@ -81,7 +88,7 @@ function Navbar() {
             )}
             <Link
               href="/donate"
-              className="px-4 py-2 border-2 rounded-full hover:bg-green-3 border-green-10 text-green-10"
+              className="px-4 py-2 rounded-full bg-green-9 hover:bg-green-10 text-green-1"
             >
               Start Donate
             </Link>
@@ -98,9 +105,14 @@ function Navbar() {
             <Link href="/boards" className="text-green-12 hover:text-green-11">
               Board
             </Link>
-            <Link href="/coupons" className="text-green-12 hover:text-green-11">
-              Promotions / Coupons
-            </Link>
+            {!!accesstoken && (
+              <Link
+                href="/coupons"
+                className="text-green-12 hover:text-green-11"
+              >
+                Promotions / Coupons
+              </Link>
+            )}
           </div>
           <Link href="/" className="flex justify-center flex-1">
             <img
@@ -111,7 +123,7 @@ function Navbar() {
           <div className="flex items-center justify-end flex-1 gap-4">
             <Link
               href="/donate"
-              className="px-4 py-2 border-2 rounded-full hover:bg-green-3 border-green-10 text-green-10"
+              className="px-4 py-2 rounded-full bg-green-9 hover:bg-green-10 text-green-1"
             >
               Start Donate
             </Link>
