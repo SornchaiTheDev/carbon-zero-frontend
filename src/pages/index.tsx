@@ -5,10 +5,11 @@ import { TNews } from "~/Types/News";
 import Navbar from "~/components/Navbar";
 import News from "~/components/News";
 import Layout from "~/layout";
-import { api } from "~/utils";
+import { api, formatNumberWithCommas } from "~/utils";
 function Home() {
   const router = useRouter();
   const [news, setNews] = useState<TNews[]>([]);
+  const [carbonOffset, setCarbonOffset] = useState<number>(0);
 
   useEffect(() => {
     const fetchNews = async () => {
@@ -16,7 +17,15 @@ function Home() {
       setNews(_news.data as TNews[]);
     };
     fetchNews();
-  });
+  }, []);
+
+  useEffect(() => {
+    const fetchCarbonOffset = async () => {
+      const res = await api.get("/carbon/sum");
+      setCarbonOffset(res.data.all_carbon_offset);
+    };
+    fetchCarbonOffset();
+  }, []);
   return (
     <Layout withOutNavbar>
       <div
@@ -33,7 +42,7 @@ function Home() {
             Discover the Impact
           </h5>
           <h4 className="text-4xl text-center text-green-12">
-            <b>1,234,567</b> kgs of{" "}
+            <b>{formatNumberWithCommas(carbonOffset.toFixed(4).toString())}</b> kgs of{" "}
             <b>
               CO<sub>2</sub>
             </b>{" "}

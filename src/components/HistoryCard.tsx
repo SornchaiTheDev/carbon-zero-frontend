@@ -1,15 +1,28 @@
 import Link from "next/link";
-import React from "react";
+import { useEffect, useMemo, useState } from "react";
 import dayjs from "dayjs";
+import { api } from "~/utils";
+import { useLocalStorage } from "usehooks-ts";
+import { TUser } from "~/Types/Users";
 
 interface Props {
+  id: number;
   date: Date;
   amount: number;
-  certLink: string;
 }
 
-function HistoryCard({ date, amount, certLink }: Props) {
+function HistoryCard({ date, amount, id }: Props) {
+  const [user, setUser] = useLocalStorage<TUser | null>("user", null);
+
+  const fullName = user?.name + " " + user?.lastname;
   const formattedDate = dayjs(date).format("DD/MM/YYYY");
+
+  const certLink = useMemo(() => {
+    return `https://cbz-backend.peerawitp.me/cert?name=${fullName}&co2_amount=${amount}&date=${formattedDate}&cert_id=RCC${id
+      .toString()
+      .padStart(10, "0")}`;
+  }, [amount, id, fullName, formattedDate]);
+
   return (
     <div className="flex flex-wrap items-center justify-between gap-4 p-4 rounded-lg shadow-md bg-sand-2">
       <div>

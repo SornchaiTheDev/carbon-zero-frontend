@@ -9,12 +9,19 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import { useCheckoutStore } from "~/store";
 import { useRouter } from "next/router";
 import { useLocalStorage } from "usehooks-ts";
+import { api } from "~/utils";
+import { THistory, TUser } from "~/Types/Users";
 
 dayjs.extend(relativeTime);
 
 function Promptpay() {
+  const [user] = useLocalStorage<TUser | null>("user", null);
   const router = useRouter();
-  const money = useCheckoutStore((state) => state.money);
+  const [money, carbonAmount] = useCheckoutStore((state) => [
+    state.money,
+    state.carbonAmount,
+  ]);
+  const [_, setCert] = useLocalStorage<string | null>("cert", null);
   const targetDateTime = useMemo(() => dayjs().add(10, "seconds"), []);
 
   const [remainingTime, setRemainingTime] = useState(
@@ -43,6 +50,34 @@ function Promptpay() {
       clearInterval(interval);
     };
   }, [targetDateTime, router]);
+
+  useEffect(() => {
+    const checkout = async () => {
+      if (!user) return;
+      try {
+        const res = await api.post<any, { data: THistory }>("carbon", {
+          user_id: user.id,
+          carbon_offset: carbonAmount,
+          donate_amount: money,
+          fee: 0,
+        });
+        console.log(res);
+        const fullName = user?.name + " " + user?.lastname;
+        const formattedDate = dayjs(res.data.created_at).format("DD/MM/YYYY");
+
+        const cert = `https://cbz-backend.peerawitp.me/cert?name=${fullName}&co2_amount=${
+          res.data.carbon_offset
+        }&date=${formattedDate}&cert_id=RCC${res.data.id
+          .toString()
+          .padStart(10, "0")}`;
+
+        setCert(cert);
+      } catch (err) {
+        console.error("Something went wrong");
+      }
+    };
+    checkout();
+  }, []);
 
   function formatTime(timeInSeconds: number) {
     const hours = Math.floor(timeInSeconds / 3600);

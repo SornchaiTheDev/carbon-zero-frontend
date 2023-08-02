@@ -1,9 +1,11 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
+import { useLocalStorage } from "usehooks-ts";
 import Back from "~/components/Back";
 import Layout from "~/layout";
 import { useCheckoutStore } from "~/store";
+import Image from "next/image";
 
 function Congrats() {
   const router = useRouter();
@@ -15,6 +17,7 @@ function Congrats() {
       state.setMoney,
     ]
   );
+  const [cert] = useLocalStorage("cert", null);
 
   useEffect(() => {
     if (carbonAmount === 0 || money === 0) {
@@ -25,10 +28,11 @@ function Congrats() {
   const handleOnClaim = () => {
     setCarbonAmount(0);
     setMoney(0);
-    router.push(
-      "https://cdn.discordapp.com/attachments/1114593806994645145/1133021992031887390/image.png"
-    );
+    if (cert === null) return;
+    router.push(cert);
   };
+
+  console.log(cert);
 
   return (
     <Layout className="flex flex-col h-screen">
@@ -49,7 +53,12 @@ function Congrats() {
           </button>
         </div>
         <div className="w-full mt-10 lg:mt-0 lg:w-1/3">
-          <img src="https://cdn.discordapp.com/attachments/1114593806994645145/1133021992031887390/image.png" />
+          {!!cert && (
+            <img
+              alt="Certificate"
+              src={cert}
+            />
+          )}
         </div>
       </div>
     </Layout>
