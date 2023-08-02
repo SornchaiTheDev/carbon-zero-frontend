@@ -98,6 +98,9 @@ function Navbar() {
             <Link href="/boards" className="text-green-12 hover:text-green-11">
               Board
             </Link>
+            <Link href="/coupons" className="text-green-12 hover:text-green-11">
+              Promotions / Coupons
+            </Link>
           </div>
           <Link href="/" className="flex justify-center flex-1">
             <img
