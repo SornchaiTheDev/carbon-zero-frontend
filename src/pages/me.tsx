@@ -43,13 +43,13 @@ function Me() {
             {!!user && user.name + " " + user.lastname}
           </h2>
 
-          <h3 className="mt-2 text-2xl">
+          {/* <h3 className="mt-2 text-2xl">
             You have compensate <b>10</b> kgs of{" "}
             <b>
               CO<sub>2</sub>
             </b>
-          </h3>
-          <Tree level={2} exp={user?.xp || 0} total={5000} />
+          </h3> */}
+          {/* <Tree level={2} exp={user?.xp || 0} total={5000} /> */}
         </div>
         <div className="w-full">
           <h3 className="text-2xl font-bold">History</h3>
