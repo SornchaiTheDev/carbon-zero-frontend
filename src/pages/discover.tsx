@@ -1,12 +1,12 @@
 import { useRouter } from "next/router";
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
+import { useLocalStorage } from "usehooks-ts";
 import Back from "~/components/Back";
 import Navbar from "~/components/Navbar";
-import VehecleType from "~/components/VehecleType";
 import Layout from "~/layout";
 import { useCheckoutStore } from "~/store";
-import { formatNumberWithCommas } from "~/utils";
+import { formatInputNumberWithCommas } from "~/utils";
 
 type CarType = "car" | "luxury" | "4x4" | "van" | "motorcycle" | "hybrid";
 
@@ -29,6 +29,8 @@ const CARBON_EMISSION_BY_HOURS = {
 };
 
 function Discover() {
+  const [user] = useLocalStorage("user", null);
+
   const [setCarbonAmount, setMoney] = useCheckoutStore((state) => [
     state.setCarbonAmount,
     state.setMoney,
@@ -78,7 +80,7 @@ function Discover() {
       return;
     }
 
-    setAmount(formatNumberWithCommas(numberInput));
+    setAmount(formatInputNumberWithCommas(numberInput));
   };
 
   const handleOnChangeType = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -100,7 +102,11 @@ function Discover() {
     if (isEmpty) {
       return;
     }
-    router.push("/payment");
+    if (!user) {
+      router.push("/signin");
+    } else {
+      router.push("/payment");
+    }
   };
 
   return (

@@ -28,7 +28,7 @@ function Board({ id, title, owner_id, body }: Props) {
           <h4>{owner === null ? "Loading..." : owner}</h4>
         </div>
       </div>
-      <p>{body}</p>
+      <p>{body.length > 100 ? body.slice(0, 100) + "..." : body}</p>
     </Link>
   );
 }

@@ -4,3 +4,9 @@ export function formatNumberWithCommas(numberStr: string) {
   const decimalPart = parts[1] || "0";
   return `${integerPart}.${decimalPart}`;
 }
+
+export function formatInputNumberWithCommas(numberStr: string) {
+  return numberStr
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+    .replace(/(\.\d\d)\d+$/, "$1");
+}

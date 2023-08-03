@@ -31,23 +31,24 @@ function Home() {
       <div
         className="relative w-full h-[100vh]"
         style={{
-          background: "url(assets/bg.jpg)",
+          background: "url(assets/bg.png)",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
         }}
       >
         <Navbar />
         <div className="absolute flex flex-col items-center w-full gap-4 px-2 -translate-x-1/2 -translate-y-1/2 md:w-fit top-1/2 left-1/2">
-          <h5 className="px-2 py-1 font-bold border rounded-full text-green-10 border-green-10">
+          <h5 className="px-2 py-1 font-bold border rounded-full text-[#FCDC75] border-[#FCDC75]">
             Discover the Impact
           </h5>
-          <h4 className="text-4xl text-center text-green-12">
-            <b>{formatNumberWithCommas(carbonOffset.toFixed(4).toString())}</b> kgs of{" "}
+          <h4 className="text-4xl text-center text-white">
+            <b>{formatNumberWithCommas(carbonOffset.toFixed(4).toString())}</b>{" "}
+            kgs of{" "}
             <b>
               CO<sub>2</sub>
             </b>{" "}
           </h4>
-          <h5 className="text-3xl text-center text-green-12">
+          <h5 className="text-3xl text-center text-white">
             have emitted to atmosphere
           </h5>
           <button

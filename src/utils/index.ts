@@ -1,2 +1,5 @@
-export { formatNumberWithCommas } from "./formatNumberWithCommas";
+export {
+  formatNumberWithCommas,
+  formatInputNumberWithCommas,
+} from "./formatNumberWithCommas";
 export { api } from "./axios";

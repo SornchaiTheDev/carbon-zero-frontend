@@ -7,6 +7,7 @@ import { useLocalStorage } from "usehooks-ts";
 import { api } from "~/utils";
 import jwt_decode from "jwt-decode";
 import { TUser } from "~/Types/Users";
+import { useRouter } from "next/router";
 
 type accessToken = {
   sub: string;
@@ -16,10 +17,12 @@ function Navbar() {
   const [accesstoken, setAccessToken] = useLocalStorage("accesstoken", null);
   const [user, setUser] = useLocalStorage<TUser | null>("user", null);
   const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
 
   const signOut = () => {
     setAccessToken(null);
     setUser(null);
+    router.replace("/");
   };
 
   useEffect(() => {

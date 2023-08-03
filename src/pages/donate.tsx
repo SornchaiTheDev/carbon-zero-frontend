@@ -3,11 +3,13 @@ import { ChangeEvent, useEffect, useState } from "react";
 import Back from "~/components/Back";
 import Navbar from "~/components/Navbar";
 import Layout from "~/layout";
-import { formatNumberWithCommas } from "~/utils";
 import { useCheckoutStore } from "~/store";
 import { twMerge } from "tailwind-merge";
+import { useLocalStorage } from "usehooks-ts";
+import { formatInputNumberWithCommas } from "~/utils";
 
 function Donate() {
+  const [user] = useLocalStorage("user", null);
   const [carbonAmount, setAmountInBaht, setCarbonAmount] = useCheckoutStore(
     (state) => [state.carbonAmount, state.setMoney, state.setCarbonAmount]
   );
@@ -25,7 +27,7 @@ function Donate() {
       return;
     }
 
-    setAmount(formatNumberWithCommas(numberInput));
+    setAmount(formatInputNumberWithCommas(numberInput));
     setAmountInBaht(parseInt(numberInput));
     let compensated = parseInt(numberInput) / 1000;
 
@@ -44,11 +46,11 @@ function Donate() {
     if (isEmpty) {
       return;
     }
-    // if (!session) {
-    //   router.push("/signin");
-    // } else {
-    router.push("/payment");
-    // }
+    if (!user) {
+      router.push("/signin");
+    } else {
+      router.push("/payment");
+    }
   };
 
   return (
