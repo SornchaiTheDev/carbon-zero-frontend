@@ -13,15 +13,15 @@ function Footer() {
           <div>
             <h4 className="text-xl text-green-11">Contact Us</h4>
             <p>
-              <span className="font-medium">IngenCO2.dk</span> <br /> Inge
-              Lehmanns Gade 10,
-              <br /> 6. sal 8000 Aarhus C Denmark
+              <span className="font-medium">Cabonzero.co </span> <br />
+              Kasetsart University,
+              <br /> 50 Chatuchak Bangkok
               <br />
               <a
                 className="underline text-green-11"
-                href="mailto:info@CO2neutralwebsite.com"
+                href="mailto:info@cabonzero.co.th"
               >
-                info@CO2neutralwebsite.com
+                info@cabonzero.co.th
               </a>
             </p>
           </div>

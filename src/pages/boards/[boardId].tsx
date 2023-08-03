@@ -99,31 +99,32 @@ function InsideBoard() {
         <h2 className="mt-4 text-lg">{board?.body}</h2>
 
         <hr className="my-4" />
-        <div className="flex w-full gap-2 mt-10">
-          <div className="relative w-10 h-10 rounded-full shadow bg-sand-5">
-            <Image
-              src="https://robohash.org/test.png"
-              alt="profile Image"
-              layout="fill"
-            />
+        {!!user && (
+          <div className="flex w-full gap-2 mt-10">
+            <div className="relative w-10 h-10 rounded-full shadow bg-sand-5">
+              <Image
+                src="https://robohash.org/test.png"
+                alt="profile Image"
+                layout="fill"
+              />
+            </div>
+            <div className="flex-1">
+              <h4 className="font-medium">{user?.name + " " + user?.lastname}</h4>
+
+              <textarea
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+                className="block w-full p-2 text-lg border-b-2 outline-none border-green-9"
+              />
+              <button
+                onClick={handleOnComment}
+                className="px-4 py-2 mt-4 border-2 rounded-full hover:bg-green-3 border-green-10 text-green-10"
+              >
+                Comment
+              </button>
+            </div>
           </div>
-          <div className="flex-1">
-            {!!user && (
-              <h4 className="font-medium">{user?.name + user?.lastname}</h4>
-            )}
-            <textarea
-              value={comment}
-              onChange={(e) => setComment(e.target.value)}
-              className="block w-full p-2 text-lg border-b-2 outline-none border-green-9"
-            />
-            <button
-              onClick={handleOnComment}
-              className="px-4 py-2 mt-4 border-2 rounded-full hover:bg-green-3 border-green-10 text-green-10"
-            >
-              Comment
-            </button>
-          </div>
-        </div>
+        )}
         <h3 className="mt-10 text-2xl font-medium">
           Discussions ({discussions.length})
         </h3>

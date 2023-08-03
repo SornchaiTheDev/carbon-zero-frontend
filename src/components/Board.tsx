@@ -1,4 +1,3 @@
-import { Icon } from "@iconify/react";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { api } from "~/utils";
