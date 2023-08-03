@@ -30,7 +30,7 @@ function InsideNewsPage() {
       <div
         className="w-full h-[50vh] px-6"
         style={{
-          background: "url(../assets/bg.jpg)",
+          background: "url(../assets/bg.png)",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
         }}

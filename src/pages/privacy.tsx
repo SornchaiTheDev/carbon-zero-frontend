@@ -8,7 +8,7 @@ function Privacy() {
       <div
         className="w-full h-[50vh]"
         style={{
-          background: "url(assets/bg.jpg)",
+          background: "url(assets/bg.png)",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
         }}

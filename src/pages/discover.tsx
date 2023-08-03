@@ -114,7 +114,7 @@ function Discover() {
       <div
         className="relative w-full h-[100vh]"
         style={{
-          background: "url(assets/bg.jpg)",
+          background: "url(assets/bg.png)",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
         }}

@@ -21,7 +21,7 @@ function NewsPage() {
       <div
         className="w-full h-[25vh] px-6"
         style={{
-          background: "url(assets/bg.jpg)",
+          background: "url(assets/bg.png)",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
         }}

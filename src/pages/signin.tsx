@@ -30,7 +30,7 @@ function Login() {
   };
   return (
     <div
-      style={{ background: "url(assets/bg.jpg)", backgroundSize: "cover" }}
+      style={{ background: "url(assets/bg.png)", backgroundSize: "cover" }}
       className="flex flex-col justify-end h-screen md:flex-row"
     >
       <div className="p-10 bg-white h-fit md:h-full md:w-1/2 rounded-t-3xl md:rounded-l-3xl">

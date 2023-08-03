@@ -46,7 +46,7 @@ function SignUp() {
 
   return (
     <div
-      style={{ background: "url(assets/bg.jpg)", backgroundSize: "cover" }}
+      style={{ background: "url(assets/bg.png)", backgroundSize: "cover" }}
       className="flex flex-col justify-end h-screen md:flex-row"
     >
       <div className="w-full p-10 bg-white h-fit md:h-full md:w-1/2 md:rounded-l-3xl">
