@@ -23,7 +23,7 @@ function Donate() {
     const MAX_AMOUNT = 10_000_000;
     const value = e.target.value as string;
     const numberInput = value.replaceAll(new RegExp(/,|[a-zA-Z-\W_]/g), "");
-    if (parseInt(numberInput) > MAX_AMOUNT || parseInt(numberInput) < 0) {
+    if (parseInt(numberInput) > MAX_AMOUNT || parseInt(numberInput) <= 0) {
       return;
     }
 
@@ -66,8 +66,8 @@ function Donate() {
         <Navbar />
 
         <div className="container flex flex-wrap flex-1 max-w-6xl px-10 mx-auto my-24 md:my-0 md:mt-32 text-green-12">
-          <div className="flex flex-col w-full gap-4 lg:w-2/3">
-            <Back className="my-2 text-sand-12 hover:text-sand-11" />
+          <div className="flex flex-col w-full gap-4 text-white lg:w-2/3">
+            <Back className="my-2 text-white hover:text-white/80" />
             <h2 className="text-5xl font-bold">
               How much do you want to donate?
             </h2>
@@ -77,7 +77,7 @@ function Donate() {
                 <input
                   value={amount}
                   onChange={handleOnChange}
-                  className="text-3xl font-bold bg-transparent border-b-2 outline-none border-green-12"
+                  className="text-3xl font-bold bg-transparent border-b-2 border-white outline-none"
                 />
                 <h2 className="text-3xl">
                   Baht{" "}

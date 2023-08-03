@@ -63,38 +63,36 @@ function Home() {
         <section className="container flex flex-col max-w-5xl gap-10 p-4 m-4 mx-auto">
           <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
             <div className="sm:w-1/2">
-              <h4 className="text-xl font-bold">
-                Our Planet&apos;s Call to Action
-              </h4>
+              <h4 className="text-xl font-bold">CARBON DIOXIDE</h4>
               <p className="mt-4">
-                Our planet is calling for action. Climate change, driven by
-                carbon emissions, poses an unprecedented threat to our
-                ecosystems, wildlife, and the very fabric of life. But together,
-                we can turn the tide and create a sustainable future. Welcome to
-                CarbonZero , where every step counts towards healing our Earth.
+                It is a gas that contributes to global warming and is produced
+                by human activities such as driving cars and energy production.
+                Reducing the amount of carbon dioxide is crucial for taking care
+                of the environment.
               </p>
             </div>
-            <img className="sm:w-1/3" src="./assets/draw1.svg" />
+            <img className="sm:w-1/3" src="./assets/hero1.png" />
           </div>
 
           <div className="flex flex-col items-center justify-between gap-4 mt-10 sm:flex-row-reverse">
             <div className="sm:w-1/2">
-              <h4 className="text-xl font-bold">A Promise to Offset</h4>
+              <h4 className="text-xl font-bold">CARBON OFFSET</h4>
               <p className="mt-4">
-                We make a promise to you and to our planet. For every ounce of
-                carbon you emit, we offer you the chance to offset your impact.
-                Invest in certified carbon credits that support renewable energy
-                projects, reforestation efforts, and sustainable initiatives
-                worldwide. Together, we&apos;ll create a climate-positive
-                future.
+                When we engage in activities that emit a large amount of carbon
+                dioxide, like driving cars, it can be harmful to the
+                environment. However, if we cannot avoid these activities, we
+                can practice &ldquo;carbon offset&rdquo; by supporting projects
+                that help reduce the carbon dioxide emissions generated from our
+                activities. For example, planting trees that absorb carbon
+                dioxide from the air.
               </p>
             </div>
-            <img className="sm:w-1/3" src="./assets/draw1.svg" />
+            <img className="sm:w-1/3" src="./assets/hero2.png" />
           </div>
 
           <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
             <div className="sm:w-1/2">
-              <h4 className="text-xl font-bold">Understanding Your Impact</h4>
+              <h4 className="text-xl font-bold">CARBON CREDIT</h4>
               <p className="mt-4">
                 Discover the true extent of your impact with our carbon
                 footprint calculator. Knowledge is power, and understanding your
@@ -104,7 +102,7 @@ function Home() {
                 contribution to carbon emissions.
               </p>
             </div>
-            <img className="sm:w-1/3" src="./assets/draw1.svg" />
+            <img className="sm:w-1/3" src="./assets/hero3.png" />
           </div>
         </section>
 

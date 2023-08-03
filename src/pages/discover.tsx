@@ -76,7 +76,7 @@ function Discover() {
     const MAX_AMOUNT = 10_000_000;
     const value = e.target.value as string;
     const numberInput = value.replaceAll(new RegExp(/[^0-9.\s]/g), "");
-    if (parseFloat(numberInput) > MAX_AMOUNT) {
+    if (parseFloat(numberInput) > MAX_AMOUNT || parseFloat(numberInput) <= 0) {
       return;
     }
 
@@ -122,8 +122,8 @@ function Discover() {
         <Navbar />
 
         <div className="container flex flex-wrap flex-1 max-w-6xl px-10 mx-auto my-24 md:my-0 md:mt-32 text-green-12">
-          <div className="flex flex-col w-full gap-4 my-4 lg:w-2/3">
-            <Back className="my-2 text-sand-12 hover:text-sand-11" />
+          <div className="flex flex-col w-full gap-4 my-4 text-white lg:w-2/3">
+            <Back className="my-2 text-white hover:text-white/80" />
             <h2 className="text-5xl font-bold">
               Let&apos;s discover your carbon footprint
             </h2>
@@ -164,7 +164,7 @@ function Discover() {
                 <input
                   value={amount}
                   onChange={handleOnChange}
-                  className="w-2/3 text-3xl font-bold bg-transparent border-b-2 outline-none border-green-12"
+                  className="w-2/3 text-3xl font-bold bg-transparent border-b-2 border-white outline-none"
                 />
                 <h2 className="w-1/3 text-3xl">
                   {calculateBy === "DISTANCE" ? "kms" : "hours"}

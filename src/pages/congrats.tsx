@@ -42,8 +42,8 @@ function Congrats() {
           <h2 className="text-4xl font-bold">Congratulation!</h2>
           <h6 className="mt-2 text-lg">
             Thank you for your donation. Your donation will be used to plant
-            trees in Thailand and develop technology that reduce carbon
-            emittion.
+            trees in Thailand and develop technology that reduces carbon
+            emissions.
           </h6>
           <button
             onClick={handleOnClaim}
@@ -53,12 +53,7 @@ function Congrats() {
           </button>
         </div>
         <div className="w-full mt-10 lg:mt-0 lg:w-1/3">
-          {!!cert && (
-            <img
-              alt="Certificate"
-              src={cert}
-            />
-          )}
+          {!!cert && <img alt="Certificate" src={cert} />}
         </div>
       </div>
     </Layout>
