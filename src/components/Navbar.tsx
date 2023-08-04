@@ -41,10 +41,7 @@ function Navbar() {
       <div className="fixed z-50 block w-full md:hidden">
         <div className="flex items-center justify-between p-4 bg-white ">
           <Link href="/">
-            <img
-              className="w-24"
-              src="https://www.co2neutralwebsite.com/images/logo_en.svg"
-            />
+            <img className="h-16 w-fit" src="assets/logo.png" />
           </Link>
           <button onClick={() => setIsOpen(!isOpen)}>
             <Icon
@@ -118,10 +115,7 @@ function Navbar() {
             )}
           </div>
           <Link href="/" className="flex justify-center flex-1">
-            <img
-              className="w-24"
-              src="https://www.co2neutralwebsite.com/images/logo_en.svg"
-            />
+            <img className="h-14 w-fit" src="assets/logo.png" />
           </Link>
           <div className="flex items-center justify-end flex-1 gap-4">
             <Link
