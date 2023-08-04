@@ -26,7 +26,7 @@ function Footer() {
           </div>
           <div>
             <h4 className="text-xl text-green-11">About CarbonZero</h4>
-            <p>lorem lorem</p>
+            <p>Carbonzero is a convenient platform to buy carbon credits</p>
           </div>
         </div>
       </div>
