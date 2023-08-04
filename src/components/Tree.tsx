@@ -53,7 +53,13 @@ function Tree({ exp }: Props) {
         <div className="w-full rounded-full bg-sand-6">
           <motion.div
             animate={{
-              width: ["0%", `${currentExp % levels[calculateLevel()]}%`],
+              width: [
+                "0%",
+                `${
+                  ((currentExp % levels[calculateLevel()]) * 100) /
+                  levels[calculateLevel()]
+                }%`,
+              ],
             }}
             className={twMerge(
               "h-4 rounded-full bg-green-10",

@@ -17,7 +17,7 @@ function Me() {
       setUser(res.data);
     };
     fetchUser();
-  }, [user, setUser]);
+  }, []);
   // const router = useRouter();
   // useEffect(() => {
   //   setTimeout(() => {
