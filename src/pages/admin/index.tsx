@@ -69,7 +69,7 @@ function AdminIndex() {
             </div>
           </Link>
           <Link
-            href="#"
+            href="/admin/news"
             className="relative col-span-12 h-[10rem] rounded-lg bg-sand-4 shadow-lg hover:bg-sand-5 md:col-span-4"
           >
             <div className="absolute flex flex-col items-center w-full gap-4 text-whites bottom-4">

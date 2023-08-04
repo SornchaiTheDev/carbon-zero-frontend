@@ -18,13 +18,15 @@ function InsideNewsPage() {
   const router = useRouter();
   const { newId } = router.query;
   const [news, setNews] = useState<News | null>(null);
-  // useEffect(() => {
-  //   const fetchBoard = async () => {
-  //     const res = await api.get(`news/${newId}`);
-  //     setNews(res.data);
-  //   };
-  //   fetchBoard();
-  // }, [newId]);
+  useEffect(() => {
+    const fetchNews = async () => {
+      try {
+        const res = await api.get(`news`);
+        setNews(res.data.filter((news: News) => news.id === Number(newId))[0]);
+      } catch (err) {}
+    };
+    fetchNews();
+  }, [newId]);
   return (
     <Layout>
       <div
