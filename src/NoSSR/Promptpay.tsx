@@ -61,15 +61,8 @@ function Promptpay() {
           donate_amount: money,
           fee: 0,
         });
-        console.log(res);
-        const fullName = user?.name + " " + user?.lastname;
-        const formattedDate = dayjs(res.data.created_at).format("DD/MM/YYYY");
 
-        const cert = `https://cbz-backend.peerawitp.me/cert?name=${fullName}&co2_amount=${
-          res.data.carbon_offset
-        }&date=${formattedDate}&cert_id=RCC${res.data.id
-          .toString()
-          .padStart(10, "0")}`;
+        const cert = `https://cbz-backend.peerawitp.me/cert/${res.data.id}`;
 
         setCert(cert);
       } catch (err) {

@@ -29,7 +29,7 @@ function Donate() {
 
     setAmount(formatInputNumberWithCommas(numberInput));
     setAmountInBaht(parseInt(numberInput));
-    let compensated = parseInt(numberInput) / 1000;
+    let compensated = parseInt(numberInput) * 5;
 
     if (Number.isNaN(compensated)) {
       compensated = 0;

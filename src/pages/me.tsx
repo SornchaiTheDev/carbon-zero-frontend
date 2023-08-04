@@ -49,7 +49,7 @@ function Me() {
               CO<sub>2</sub>
             </b>
           </h3> */}
-          {/* <Tree level={2} exp={user?.xp || 0} total={5000} /> */}
+          <Tree exp={user?.xp || 0} />
         </div>
         <div className="w-full">
           <h3 className="text-2xl font-bold">History</h3>

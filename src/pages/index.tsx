@@ -21,7 +21,7 @@ function Home() {
 
   useEffect(() => {
     const fetchCarbonOffset = async () => {
-      const res = await api.get("/carbon/sum");
+      const res = await api.get("/carbon/all");
       setCarbonOffset(res.data.all_carbon_offset);
     };
     fetchCarbonOffset();

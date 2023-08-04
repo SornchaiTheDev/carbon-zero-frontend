@@ -9,6 +9,7 @@ import Layout from "~/layout";
 import { api } from "~/utils";
 import { TNews } from "~/Types/News";
 import News from "~/components/News";
+import { useRouter } from "next/router";
 
 function AddNews() {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,6 +20,13 @@ function AddNews() {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [user, setUser] = useLocalStorage<TUser | null>("user", null);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (user?.user_type_id !== 0) {
+      router.replace("/");
+    }
+  }, [user, router]);
 
   const handleOnAddNewBoard = async () => {
     setIsLoading(true);
@@ -146,7 +154,7 @@ function AddNews() {
           }}
         ></div>
         <div className="container px-4 mx-auto">
-          <Back href="/" className="mt-4" />
+          <Back href="/admin" className="mt-4" />
           <div className="flex items-center justify-between">
             <h2 className="my-6 text-4xl font-bold text-green-12">News</h2>
             <button

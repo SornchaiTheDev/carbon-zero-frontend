@@ -11,28 +11,29 @@ interface Props {
   exp: number;
 }
 function Tree({ exp }: Props) {
-  const currentLevel = 9500 / exp;
-  const [total, setTotal] = useState(0);
-  const currentExp = Math.max(Math.floor((exp / currentLevel) * 100), 0);
-
-  const calculateXp = () => {
-    if (currentExp < 25) {
-      return 1;
-    } else if (currentExp < 50) {
-      return 2;
-    } else if (currentExp < 75) {
-      return 3;
-    } else {
-      return 4;
-    }
+  const [currentExp, setCurrentExp] = useState(exp);
+  const levels = {
+    1: 300,
+    2: 600,
+    3: 1000,
+    4: 1500,
   };
 
-  useEffect(() => {
-    setTotal(Math.round(currentLevel * 100));
-  }, []);
+  const calculateLevel = () => {
+    if (Math.floor(currentExp / 300) > 0) {
+      return 1;
+    } else if (Math.floor(currentExp / 600) > 0) {
+      return 2;
+    } else if (Math.floor(currentExp / 1000) > 0) {
+      return 3;
+    } else if (Math.floor(currentExp / 1500) > 0) {
+      return 4;
+    }
+    return 1;
+  };
 
   const state = () => {
-    switch (calculateXp()) {
+    switch (calculateLevel()) {
       case 1:
         return state1;
       case 2:
@@ -48,7 +49,7 @@ function Tree({ exp }: Props) {
   return (
     <div className="flex flex-col max-w-[30rem] gap-4 mt-4">
       <div className="w-full">
-        <h3>Level 1</h3>
+        <h3>Level {calculateLevel()}</h3>
         <div className="w-full rounded-full bg-sand-6">
           <motion.div
             animate={{ width: ["0%", `${currentExp}%`] }}
@@ -60,7 +61,7 @@ function Tree({ exp }: Props) {
         </div>
         <div className="flex justify-between">
           <h4>0xp</h4>
-          <h4>{total}xp</h4>
+          <h4>{levels[calculateLevel()]}xp</h4>
         </div>
       </div>
       <div className="flex justify-center">

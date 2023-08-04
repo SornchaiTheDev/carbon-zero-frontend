@@ -1,8 +1,20 @@
 import Layout from "~/layout";
 import Link from "next/link";
 import { Icon } from "@iconify/react/dist/iconify.js";
+import { useEffect } from "react";
+import { useLocalStorage } from "usehooks-ts";
+import { TUser } from "~/Types/Users";
+import { useRouter } from "next/router";
 
 function AdminIndex() {
+  const [user] = useLocalStorage<TUser | null>("user", null);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (user?.user_type_id !== 0) {
+      router.replace("/");
+    }
+  }, [user, router]);
   return (
     <Layout>
       <div

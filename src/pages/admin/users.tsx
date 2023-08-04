@@ -8,22 +8,65 @@ import Table from "~/components/Table";
 import { createColumnHelper } from "@tanstack/react-table";
 import Link from "next/link";
 import { Icon } from "@iconify/react/dist/iconify.js";
+import { useLocalStorage } from "usehooks-ts";
+import { useRouter } from "next/router";
 
+type THistory = {
+  user_id: number;
+  id: number;
+  donate_amount: number;
+  created_at: string;
+  carbon_offset: number;
+  fee: number;
+};
 function AdminIndex() {
-  const columnHelper = createColumnHelper<TUser>();
+  const [carbonOffset, setCarbonOffset] = useState<number>(0);
+  const [history, setHistory] = useState<THistory[]>([]);
+  const [user] = useLocalStorage<TUser | null>("user", null);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (user?.user_type_id !== 0) {
+      router.replace("/");
+    }
+  }, [user, router]);
+
+  useEffect(() => {
+    const fetchCarbonOffset = async () => {
+      const res = await api.get("/carbon/all");
+      setCarbonOffset(res.data.all_carbon_offset);
+      setHistory(res.data.all_carbon);
+    };
+    fetchCarbonOffset();
+  }, []);
+  const columnHelper = createColumnHelper<THistory>();
   const columns = useMemo(
     () => [
       columnHelper.accessor("id", {
         header: "ID",
       }),
-      columnHelper.accessor("name", {
-        header: "Firstname",
+      columnHelper.accessor("carbon_offset", {
+        header: "Carbon",
+        cell: (props) => <h6>{props.cell.getValue()} kgs</h6>,
       }),
-      columnHelper.accessor("lastname", {
-        header: "Lastname",
+      columnHelper.display({
+        id: "cert",
+        header: "Certificate",
+        size: 50,
+        cell: (props) => {
+          return (
+            <div className="flex justify-center">
+              <Link
+                target="_blank"
+                href={`https://cbz-backend.peerawitp.me/cert/${props.row.original.id}`}
+                className="text-2xl"
+              >
+                <Icon icon="carbon:certificate" />
+              </Link>
+            </div>
+          );
+        },
       }),
-      columnHelper.accessor("user_carbon", { header: "Carbon" }),
-      columnHelper.display({ id: "cert", header: "Certificate", size: 50 }),
     ],
     [columnHelper]
   );
@@ -38,7 +81,7 @@ function AdminIndex() {
         }}
       ></div>
       <div className="container px-4 mx-auto">
-        <Back href="/" className="mt-4" />
+        <Back href="/admin" className="mt-4" />
         <h2 className="my-6 text-4xl font-bold text-green-12">Users</h2>
 
         <div className="p-4 rounded-lg shadow bg-sand-1">
@@ -47,10 +90,10 @@ function AdminIndex() {
             <b>
               CO<sub>2</sub>
             </b>{" "}
-            that has offset <b>200</b> kgs
+            that has offset <b>{carbonOffset.toFixed(4)}</b> kgs
           </h2>
         </div>
-        <Table columns={columns} data={[]} />
+        <Table columns={columns} data={history} />
       </div>
     </Layout>
   );
