@@ -8,6 +8,7 @@ import { api } from "~/utils";
 import jwt_decode from "jwt-decode";
 import { TUser } from "~/Types/Users";
 import { useRouter } from "next/router";
+import logo from "../../public/assets/logo.png";
 
 type accessToken = {
   sub: string;
@@ -41,7 +42,7 @@ function Navbar() {
       <div className="fixed z-50 block w-full md:hidden">
         <div className="flex items-center justify-between p-4 bg-white ">
           <Link href="/">
-            <img className="h-16 w-fit" src="assets/logo.png" />
+            <Image src={logo} alt="Logo" width={100} />
           </Link>
           <button onClick={() => setIsOpen(!isOpen)}>
             <Icon
@@ -114,8 +115,8 @@ function Navbar() {
               </Link>
             )}
           </div>
-          <Link href="/" className="flex justify-center flex-1">
-            <img className="h-14 w-fit" src="assets/logo.png" />
+          <Link href="/" className="">
+            <Image src={logo} alt="Logo" width={100} />
           </Link>
           <div className="flex items-center justify-end flex-1 gap-4">
             <Link

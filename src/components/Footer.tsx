@@ -1,14 +1,13 @@
 import Link from "next/link";
-import React from "react";
+import Image from "next/image";
+import logo from "../../public/assets/logo.png";
 
 function Footer() {
   return (
     <footer>
       <div className="container flex flex-wrap justify-between max-w-6xl gap-10 p-10 mx-auto">
-        <img
-          className="w-36"
-          src="https://www.co2neutralwebsite.com/images/logo_en.svg"
-        />
+        <Image src={logo} alt="Logo" width={180} />
+
         <div className="flex flex-wrap gap-10">
           <div>
             <h4 className="text-xl text-green-11">Contact Us</h4>
