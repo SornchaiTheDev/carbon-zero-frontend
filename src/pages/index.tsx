@@ -108,9 +108,9 @@ function Home() {
 
         <section className="container p-4 m-4 mx-auto mt-10">
           <h5 className="text-lg text-sand-9">How it work</h5>
-          <h2 className="text-3xl font-bold md:w-1/3">
+          {/* <h2 className="text-3xl font-bold md:w-1/3">
             Fundraising on GoFundMe takes just a few minutes
-          </h2>
+          </h2> */}
           <div className="grid grid-cols-12 gap-4 mt-10">
             <div className="flex flex-col items-center justify-center col-span-12 gap-2 p-4 rounded-md sm:col-span-6 lg:col-span-4 bg-sand-4">
               <div className="flex items-center justify-center w-12 h-12 font-bold bg-white rounded-full">
