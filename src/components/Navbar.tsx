@@ -142,7 +142,7 @@ function Navbar() {
                 <Popover.Portal>
                   <Popover.Content
                     className="flex min-w-[12rem] flex-col gap-2 rounded-lg bg-white pb-2 shadow-md"
-                    sideOffset={14}
+                    sideOffset={20}
                     align="end"
                   >
                     <div className="px-6 pt-4">
