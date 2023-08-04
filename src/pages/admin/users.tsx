@@ -73,14 +73,14 @@ function AdminIndex() {
   return (
     <Layout className="flex flex-col h-screen">
       <div
-        className="w-full flex-1 h-[25vh] px-6"
+        className="w-full h-[25vh] px-6"
         style={{
-          background: "url(assets/bg.png)",
+          background: "url(../assets/bg.png)",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
         }}
       ></div>
-      <div className="container px-4 mx-auto">
+      <div className="container flex-1 px-4 mx-auto mt-36">
         <Back href="/admin" className="mt-4" />
         <h2 className="my-6 text-4xl font-bold text-green-12">Users</h2>
 

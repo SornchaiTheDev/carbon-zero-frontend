@@ -155,7 +155,7 @@ function AddNews() {
             backgroundSize: "cover",
           }}
         ></div>
-        <div className="container flex-1 px-4 mx-auto">
+        <div className="container flex-1 px-4 mx-auto mt-36">
           <Back href="/admin" className="mt-4" />
           <div className="flex items-center justify-between">
             <h2 className="my-6 text-4xl font-bold text-green-12">News</h2>
