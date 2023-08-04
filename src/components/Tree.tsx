@@ -20,15 +20,16 @@ function Tree({ exp }: Props) {
   };
 
   const calculateLevel = () => {
-    if (Math.floor(currentExp / 300) > 0) {
-      return 1;
-    } else if (Math.floor(currentExp / 600) > 0) {
-      return 2;
+    if (Math.floor(currentExp / 1500) > 0) {
+      return 4;
     } else if (Math.floor(currentExp / 1000) > 0) {
       return 3;
-    } else if (Math.floor(currentExp / 1500) > 0) {
-      return 4;
+    } else if (Math.floor(currentExp / 600) > 0) {
+      return 2;
+    } else if (Math.floor(currentExp / 300) > 0) {
+      return 1;
     }
+
     return 1;
   };
 
@@ -46,6 +47,7 @@ function Tree({ exp }: Props) {
         return state1;
     }
   };
+
   return (
     <div className="flex flex-col max-w-[30rem] gap-4 mt-4">
       <div className="w-full">
@@ -56,8 +58,13 @@ function Tree({ exp }: Props) {
               width: [
                 "0%",
                 `${
-                  ((currentExp % levels[calculateLevel()]) * 100) /
-                  levels[calculateLevel()]
+                  currentExp / levels[calculateLevel()] < 1
+                    ? Math.min(
+                        ((currentExp % levels[calculateLevel()]) * 100) /
+                          levels[calculateLevel()],
+                        100
+                      )
+                    : 100
                 }%`,
               ],
             }}
