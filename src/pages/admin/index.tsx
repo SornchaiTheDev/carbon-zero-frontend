@@ -16,7 +16,7 @@ function AdminIndex() {
     }
   }, [user, router]);
   return (
-    <Layout>
+    <Layout className="flex flex-col h-screen">
       <div
         className="w-full h-[25vh] px-6"
         style={{
@@ -25,7 +25,7 @@ function AdminIndex() {
           backgroundSize: "cover",
         }}
       ></div>
-      <div className="container px-4 mx-auto">
+      <div className="container flex-1 px-4 mx-auto">
         <h2 className="my-6 text-4xl font-bold text-green-12">
           Admin Dashboard
         </h2>

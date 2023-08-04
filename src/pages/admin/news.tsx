@@ -146,7 +146,7 @@ function AddNews() {
           </Button>
         </div>
       </Modal>
-      <Layout>
+      <Layout className="flex flex-col h-screen">
         <div
           className="w-full h-[25vh] px-6"
           style={{
@@ -155,7 +155,7 @@ function AddNews() {
             backgroundSize: "cover",
           }}
         ></div>
-        <div className="container px-4 mx-auto">
+        <div className="container flex-1 px-4 mx-auto">
           <Back href="/admin" className="mt-4" />
           <div className="flex items-center justify-between">
             <h2 className="my-6 text-4xl font-bold text-green-12">News</h2>

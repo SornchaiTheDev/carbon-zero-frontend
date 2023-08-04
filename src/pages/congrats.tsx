@@ -32,8 +32,6 @@ function Congrats() {
     router.push(cert);
   };
 
-  console.log(cert);
-
   return (
     <Layout className="flex flex-col h-screen">
       <div className="container flex flex-col flex-1 max-w-6xl px-10 mx-auto mt-24 md:mt-40 lg:flex-row text-green-12">

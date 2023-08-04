@@ -71,9 +71,9 @@ function AdminIndex() {
     [columnHelper]
   );
   return (
-    <Layout>
+    <Layout className="flex flex-col h-screen">
       <div
-        className="w-full h-[25vh] px-6"
+        className="w-full flex-1 h-[25vh] px-6"
         style={{
           background: "url(assets/bg.png)",
           backgroundRepeat: "no-repeat",
