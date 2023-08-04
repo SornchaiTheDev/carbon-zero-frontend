@@ -154,7 +154,17 @@ function Navbar() {
                       </h4>
                     </div>
                     <hr />
-
+                    {!!user && user.user_type_id === 0 && (
+                      <div>
+                        <Link
+                          className="flex items-center justify-between w-full px-6 py-2 text-sand-11 hover:bg-sand-4 hover:text-sand-12"
+                          href="/admin"
+                        >
+                          Admin
+                          <Icon icon="solar:crown-minimalistic-line-duotone" />
+                        </Link>
+                      </div>
+                    )}
                     <div>
                       <Link
                         className="flex items-center justify-between w-full px-6 py-2 text-sand-11 hover:bg-sand-4 hover:text-sand-12"
@@ -164,6 +174,7 @@ function Navbar() {
                         <Icon icon="solar:user-rounded-line-duotone" />
                       </Link>
                     </div>
+
                     <div>
                       <button
                         onClick={() => signOut()}

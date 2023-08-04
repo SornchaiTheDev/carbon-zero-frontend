@@ -48,6 +48,8 @@ function AddNews() {
       setIsOpen(false);
       setNewsTitle("");
       setDescription("");
+      setJoinDetail("");
+      setLocation("");
       setIsLoading(false);
       fetchNews();
     } catch (err) {
