@@ -20,7 +20,7 @@ export default function Layout({ children, withOutNavbar, className }: Props) {
       <NextSeo
         // title={`| CarbonZero`}
         defaultTitle="CarbonZero"
-        description="Programming Lab web application for Computer Science Kasetsart University"
+        description="Your goal is our goal"
       />
       <div
         className={sarabun.className.concat(!!className ? " " + className : "")}
