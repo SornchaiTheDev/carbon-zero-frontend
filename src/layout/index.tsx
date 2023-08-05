@@ -3,6 +3,7 @@ import { Sarabun } from "next/font/google";
 import Navbar from "~/components/Navbar";
 import Footer from "~/components/Footer";
 import { NextSeo } from "next-seo";
+import ChatBot from "~/components/ChatBot";
 
 const sarabun = Sarabun({
   subsets: ["thai"],
@@ -17,6 +18,7 @@ interface Props {
 export default function Layout({ children, withOutNavbar, className }: Props) {
   return (
     <>
+      <ChatBot />
       <NextSeo
         // title={`| CarbonZero`}
         defaultTitle="CarbonZero"
