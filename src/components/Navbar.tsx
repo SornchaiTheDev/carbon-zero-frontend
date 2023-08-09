@@ -60,6 +60,18 @@ function Navbar() {
               Board
             </Link>
 
+            {!!user && user.user_type_id === 0 && (
+              <div>
+                <Link
+                  className="flex items-center gap-2 px-6 py-2 w-fit text-green-12 hover:text-green-11"
+                  href="/admin"
+                >
+                  Admin
+                  <Icon icon="solar:crown-minimalistic-line-duotone" />
+                </Link>
+              </div>
+            )}
+
             {!!accesstoken ? (
               <>
                 <Link href="/me" className="text-green-12 hover:text-green-11">

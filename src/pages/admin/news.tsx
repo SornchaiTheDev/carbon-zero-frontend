@@ -1,5 +1,5 @@
 import { Icon } from "@iconify/react";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { useLocalStorage } from "usehooks-ts";
 import { TUser } from "~/Types/Users";
 import Back from "~/components/Back";
@@ -13,6 +13,7 @@ import { useRouter } from "next/router";
 
 function AddNews() {
   const [isOpen, setIsOpen] = useState(false);
+  const [coverImage, setCoverImage] = useState<File | null>(null);
   const [newsTitle, setNewsTitle] = useState("");
   const [description, setDescription] = useState("");
   const [location, setLocation] = useState("");
@@ -30,19 +31,34 @@ function AddNews() {
 
   const handleOnAddNewBoard = async () => {
     setIsLoading(true);
-    if (newsTitle === "" || description === "" || location === "") {
+    if (
+      newsTitle === "" ||
+      description === "" ||
+      location === "" ||
+      coverImage === null
+    ) {
       setIsError(true);
       setIsLoading(false);
       return;
     }
 
     try {
-      await api.post("news", {
+      const res = await api.post("news", {
         title: newsTitle,
         location,
         description,
         join_detail: joinDetail,
         owner_id: user?.id,
+      });
+
+      const formData = new FormData();
+      formData.append("file", coverImage);
+      formData.append("news_id", res.data.id);
+
+      await api.post("uploadNewImage", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       });
 
       setIsOpen(false);
@@ -65,6 +81,7 @@ function AddNews() {
   const isLocationError = isError && location === "";
   const isBodyError = isError && description === "";
   const isJoinDetailError = isError && joinDetail === "";
+  const isCoverImageError = isError && coverImage === null;
 
   const [news, setNews] = useState<TNews[]>([]);
   const fetchNews = async () => {
@@ -74,6 +91,12 @@ function AddNews() {
   useEffect(() => {
     fetchNews();
   }, []);
+
+  const handleFileSelect = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files?.length) {
+      setCoverImage(e.target.files[0]);
+    }
+  };
 
   return (
     <>
@@ -85,6 +108,18 @@ function AddNews() {
       >
         <div className="flex flex-col gap-2">
           <div>
+            <label htmlFor="boardName" className="text-sand-12">
+              Cover Image
+            </label>
+            <input
+              id="boardName"
+              type="file"
+              onChange={handleFileSelect}
+              className="w-full p-2 mt-1 mb-2 text-lg border rounded-lg boder-sand-11"
+            />
+            {isCoverImageError && (
+              <p className="text-red-9">Cover Image cannot be empty</p>
+            )}
             <label htmlFor="boardName" className="text-sand-12">
               Title
             </label>

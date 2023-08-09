@@ -31,7 +31,7 @@ function ChatBot() {
   return (
     <motion.div className="fixed bottom-0 z-40 w-[24rem] p-4 bg-white right-4 rounded-t-xl shadow">
       <div className="flex justify-between">
-        <h3 className="text-xl font-bold">ChatBot</h3>
+        <h3 className="text-xl font-bold">Customer Service</h3>
         <button className="hover:text-sand-11 text-sand-12">
           <Icon
             onClick={() => setIsOpen(!isOpen)}

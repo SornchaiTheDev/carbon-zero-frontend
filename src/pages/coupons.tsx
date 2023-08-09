@@ -1,11 +1,9 @@
 import { useState } from "react";
 import Layout from "~/layout";
-import Image from "next/image";
-import coupon1 from "../../public/assets/coupons/1.png";
-import coupon1_click from "../../public/assets/coupons/1_click.png";
-import coupon2 from "../../public/assets/coupons/2.png";
-import coupon3 from "../../public/assets/coupons/3.png";
-import coupon4 from "../../public/assets/coupons/4.png";
+import hotel1 from "../../public/assets/coupons/hotel1.png";
+
+import { Icon } from "@iconify/react";
+import Coupon from "~/components/Coupon";
 
 function Coupons() {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,33 +17,11 @@ function Coupons() {
           backgroundSize: "cover",
         }}
       ></div>
-      <div className="container flex flex-wrap gap-10 p-10 mx-auto">
-        <div className="w-full">
-          <h3 className="text-4xl font-bold">Coupons</h3>
-          <div className="flex flex-wrap justify-center gap-10">
-            <div className="flex flex-col flex-wrap gap-4 mt-10">
-              <Image
-                className="cursor-pointer"
-                src={coupon2}
-                width={300}
-                onClick={() => setIsOpen(!isOpen)}
-                height={200}
-                alt="Coupon"
-              />
-              <Image src={coupon1} width={300} height={200} alt="Coupon" />
-              <Image src={coupon3} width={300} height={200} alt="Coupon" />
-              <Image src={coupon4} width={300} height={200} alt="Coupon" />
-            </div>
-            {isOpen && (
-              <Image
-                src={coupon1_click}
-                width={300}
-                height={200}
-                alt="Coupon"
-              />
-            )}
-          </div>
-        </div>
+      <div className="container grid flex-wrap grid-cols-12 gap-6 p-10 mx-auto mt-10">
+        <Coupon imgSrc="../assets/coupons/hotel1.png" type="hotel" />
+        <Coupon imgSrc="../assets/coupons/hotel2.png" type="hotel" />
+        <Coupon imgSrc="../assets/coupons/hotel3.png" type="hotel" />
+        <Coupon imgSrc="../assets/coupons/event1.png" type="event" />
       </div>
     </Layout>
   );
