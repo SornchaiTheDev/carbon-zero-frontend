@@ -5,8 +5,6 @@ import { useEffect, useState } from "react";
 import { api } from "~/utils";
 import { TNews } from "~/Types/News";
 
-
-
 function NewsPage() {
   const [news, setNews] = useState<TNews[]>([]);
   useEffect(() => {
@@ -32,12 +30,17 @@ function NewsPage() {
 
         {news.length > 0 ? (
           <div className="grid grid-cols-12 gap-6 mt-10">
-            {news.map(({ title, id, description }, i) => (
+            {news.map(({ title, id, description, images }, i) => (
               <News
                 key={i}
                 id={id}
                 title={title}
                 description={description}
+                coverImg={
+                  images.length > 0
+                    ? "https://cbz-backend.peerawitp.me/imgs/" + images[0].image
+                    : undefined
+                }
                 href={`/news/${id}`}
               />
             ))}

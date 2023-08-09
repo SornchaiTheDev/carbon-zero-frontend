@@ -4,39 +4,38 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { api } from "~/utils";
 import { useRouter } from "next/router";
+import { TNews } from "~/Types/News";
 
-type News = {
-  id: number;
-  title: string;
-  location: string;
-  description: string;
-  join_detail: string;
-  owner_id: number;
-  created_at: string;
-};
 function InsideNewsPage() {
   const router = useRouter();
   const { newId } = router.query;
-  const [news, setNews] = useState<News | null>(null);
+  const [news, setNews] = useState<TNews | null>(null);
   useEffect(() => {
     const fetchNews = async () => {
       try {
         const res = await api.get(`news`);
-        setNews(res.data.filter((news: News) => news.id === Number(newId))[0]);
+        setNews(res.data.filter((news: TNews) => news.id === Number(newId))[0]);
       } catch (err) {}
     };
     fetchNews();
   }, [newId]);
   return (
     <Layout>
-      <div
-        className="w-full h-[50vh] px-6"
-        style={{
-          background: "url(../assets/bg.png)",
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-        }}
-      ></div>
+      {!!news && (
+        <div
+          className="w-full h-[50vh] px-6"
+          style={{
+            background: `url(${
+              news?.images.length > 0
+                ? "https://cbz-backend.peerawitp.me/imgs/" +
+                  news?.images[0].image
+                : "../assets/bg.png"
+            })`,
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+          }}
+        ></div>
+      )}
       <div className="container px-4 mx-auto -translate-y-48">
         <div className="p-8 bg-white rounded-lg shadow-md">
           <Link
