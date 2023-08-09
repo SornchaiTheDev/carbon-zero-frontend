@@ -1,5 +1,7 @@
 import { Icon } from "@iconify/react/dist/iconify.js";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { api } from "~/utils";
 
 interface Props {
   id: number;
@@ -10,7 +12,7 @@ interface Props {
 }
 
 const DEFAULT_COVER_IMG =
-  "https://images.unsplash.com/photo-1690184432588-81068877d852?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80";
+  "https://www.greenpeace.org/static/planet4-thailand-stateless/2020/09/d63e5e4f-gp0stua97-510x340.jpg";
 
 function News({
   id,
@@ -24,7 +26,8 @@ function News({
       className="relative col-span-12 overflow-hidden rounded-lg h-96 sm:col-span-6 lg:col-span-4"
       style={{
         background: `url(${coverImg})`,
-        backgroundPosition: "center",
+        backgroundPosition: "bottom",
+        backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
       }}
     >

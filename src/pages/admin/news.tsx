@@ -10,6 +10,7 @@ import { api } from "~/utils";
 import { TNews } from "~/Types/News";
 import News from "~/components/News";
 import { useRouter } from "next/router";
+import { AxiosError } from "axios";
 
 function AddNews() {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,6 +21,9 @@ function AddNews() {
   const [joinDetail, setJoinDetail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
+  const [coverImageError, setCoverImageError] = useState(
+    "Image cannot be empty"
+  );
   const [user, setUser] = useLocalStorage<TUser | null>("user", null);
   const router = useRouter();
 
@@ -43,6 +47,9 @@ function AddNews() {
     }
 
     try {
+      if (!coverImage.type.toString().match("image/jpeg")) {
+        throw new Error("ERR_BAD_REQUEST");
+      }
       const res = await api.post("news", {
         title: newsTitle,
         location,
@@ -52,10 +59,13 @@ function AddNews() {
       });
 
       const formData = new FormData();
+
       formData.append("file", coverImage);
-      formData.append("news_id", res.data.id);
 
       await api.post("uploadNewImage", formData, {
+        params: {
+          news_id: res.data.id,
+        },
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -69,7 +79,21 @@ function AddNews() {
       setIsLoading(false);
       fetchNews();
     } catch (err) {
+      if (err instanceof AxiosError) {
+        if (err.code === "ERR_BAD_REQUEST") {
+          setCoverImageError("Invalid file type, only jpeg accept");
+        }
+      }
+
+      if (err instanceof Error) {
+        if (err.message === "ERR_BAD_REQUEST") {
+          setCoverImageError("Invalid file type, only jpeg accept");
+        }
+      }
+
       setIsError(true);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -81,7 +105,9 @@ function AddNews() {
   const isLocationError = isError && location === "";
   const isBodyError = isError && description === "";
   const isJoinDetailError = isError && joinDetail === "";
-  const isCoverImageError = isError && coverImage === null;
+  const isCoverImageError =
+    (isError && coverImage === null) ||
+    coverImageError !== "Image cannot be empty";
 
   const [news, setNews] = useState<TNews[]>([]);
   const fetchNews = async () => {
@@ -118,7 +144,7 @@ function AddNews() {
               className="w-full p-2 mt-1 mb-2 text-lg border rounded-lg boder-sand-11"
             />
             {isCoverImageError && (
-              <p className="text-red-9">Cover Image cannot be empty</p>
+              <p className="text-red-9">{coverImageError}</p>
             )}
             <label htmlFor="boardName" className="text-sand-12">
               Title
@@ -177,7 +203,7 @@ function AddNews() {
             )}
           </div>
           <Button onClick={handleOnAddNewBoard} {...{ isLoading }}>
-            Add new News
+            Add News
           </Button>
         </div>
       </Modal>
@@ -204,12 +230,18 @@ function AddNews() {
           </div>
           {news.length > 0 ? (
             <div className="grid grid-cols-12 gap-6 mt-10">
-              {news.map(({ title, id, description }, i) => (
+              {news.map(({ title, id, description, images }, i) => (
                 <News
                   key={i}
                   id={id}
                   title={title}
                   description={description}
+                  coverImg={
+                    images.length > 0
+                      ? "https://cbz-backend.peerawitp.me/imgs/" +
+                        images[0].image
+                      : undefined
+                  }
                   href={`/news/${id}`}
                 />
               ))}
