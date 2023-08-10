@@ -23,7 +23,7 @@ const Highlight = ({ highlights }: { highlights: TFacilitieName[] }) => {
   };
   return (
     <div className="w-full p-2 mt-4 border rounded-lg">
-      <h4 className="text-xl font-bold">Highlights</h4>
+      <h4 className="text-xl font-bold">Facilities</h4>
       <div className="grid justify-center grid-cols-12 mt-4 ">
         {highlights.map((name) => (
           <div
