@@ -131,6 +131,9 @@ function Navbar() {
             <Image src={logo} alt="Logo" width={100} />
           </Link>
           <div className="flex items-center justify-end flex-1 gap-4">
+            <Link href="/book" className="text-green-12 hover:text-green-11">
+              Booking
+            </Link>
             <Link
               href="/donate"
               className="px-4 py-2 rounded-full bg-green-9 hover:bg-green-10 text-green-1"
