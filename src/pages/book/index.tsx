@@ -6,6 +6,8 @@ import { Icon } from "@iconify/react";
 import Link from "next/link";
 import { THotel, TCheapestRoom } from "~/Types/Hotel";
 import { api } from "~/utils";
+import { TEvent } from "~/Types/Event";
+import dayjs from "dayjs";
 
 const Button = ({
   children,
@@ -52,7 +54,7 @@ const Hotels = () => {
     ({ hotel_id, name, stars, address, city, country, price }) => (
       <Link
         key={hotel_id}
-        href={`/book/${hotel_id}`}
+        href={`/book/hotel/${hotel_id}`}
         className="relative col-span-12 overflow-hidden rounded-lg h-96 sm:col-span-6 lg:col-span-4"
         style={{
           background: `url(https://pix8.agoda.net/hotelImages/14654101/-1/a7c3c9a7db41d9ec49737d3506e854d3.jpg?ce=0&s=1024x768&isSkia=true)`,
@@ -83,18 +85,99 @@ const Hotels = () => {
   );
 };
 
+const Events = () => {
+  const [events, setEvents] = useState<TEvent[]>([]);
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const res = await api.get("events");
+
+        setEvents(res.data);
+      } catch (err) {}
+    };
+    fetchEvents();
+  }, []);
+
+  return events.map(
+    ({
+      event_id,
+      name,
+      image,
+      description,
+      location,
+      availability,
+      event_type,
+      start_date,
+      end_date,
+      price,
+      capacity,
+    }) => (
+      <Link
+        key={event_id}
+        href={`/book/event/${event_id}`}
+        className="relative col-span-12 overflow-hidden rounded-lg h-96 sm:col-span-6 lg:col-span-4"
+        style={{
+          background: `url(https://cbz-backend.peerawitp.me/imgs/${image})`,
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+        }}
+      >
+        <div className="absolute bottom-0 flex flex-col w-full gap-1 p-4 bg-sand-2">
+          <div className="px-1 rounded-lg text-green-1 w-fit bg-green-8">{event_type}</div>
+
+          <div className="flex justify-between">
+            <h3 className="text-xl font-bold">{name}</h3>
+          </div>
+          <div className="flex items-center gap-1">
+            <Icon icon="carbon:location-filled" className="text-green-12" />
+            <h6 className="text-sm">{location}</h6>
+          </div>
+
+          <div className="flex items-center gap-1">
+            <Icon
+              icon="material-symbols:calendar-month"
+              className="text-green-12"
+            />
+            <h6 className="text-sm">
+              {/* show event date from start to end date using dayjs */}
+              {dayjs(start_date).format("DD/MM/YYYY")} -{" "}
+              {dayjs(end_date).format("DD/MM/YYYY")}
+            </h6>
+          </div>
+          <div className="flex items-center gap-1">
+            <Icon icon="ic:twotone-event-seat" className="text-green-12" />
+            <h6 className="text-sm">
+              {availability}/{capacity}
+            </h6>
+          </div>
+
+          <h4 className="self-end text-2xl font-bold text-sand-11">
+            ฿ {price}
+          </h4>
+        </div>
+      </Link>
+    )
+  );
+};
+
 const BookingList = () => {
   return (
     <div>
       <h2 className="my-6 text-2xl font-bold text-green-12">Hotels</h2>
+
+      <div className="p-4 rounded-lg">
+        <h4>Hotel Name</h4>
+        <h4>Hotel Name</h4>
+      </div>
       <h2 className="my-6 text-2xl font-bold text-green-12">Events</h2>
     </div>
   );
 };
 function Booking() {
-  const [active, setActive] = useState<
-    "HOTEL" | "EVENT" | "PACKAGE" | "BOOKINGLIST"
-  >("HOTEL");
+  const [active, setActive] = useState<"HOTEL" | "EVENT" | "BOOKINGLIST">(
+    "HOTEL"
+  );
 
   return (
     <Layout>
@@ -111,23 +194,18 @@ function Booking() {
         <h2 className="my-6 text-4xl font-bold text-green-12">Booking</h2>
         <div className="flex gap-4">
           <Button
-            active={active === "HOTEL"}
-            onClick={() => setActive("HOTEL")}
-          >
-            Hotels
-          </Button>
-          <Button
             active={active === "EVENT"}
             onClick={() => setActive("EVENT")}
           >
             Events
           </Button>
           <Button
-            active={active === "PACKAGE"}
-            onClick={() => setActive("PACKAGE")}
+            active={active === "HOTEL"}
+            onClick={() => setActive("HOTEL")}
           >
-            Packages
+            Hotels
           </Button>
+
           <Button
             active={active === "BOOKINGLIST"}
             onClick={() => setActive("BOOKINGLIST")}
@@ -136,6 +214,7 @@ function Booking() {
           </Button>
         </div>
         <div className="grid grid-cols-12 gap-6 mt-10">
+          {active === "EVENT" && <Events />}
           {active === "HOTEL" && <Hotels />}
           {active === "BOOKINGLIST" && <BookingList />}
         </div>
