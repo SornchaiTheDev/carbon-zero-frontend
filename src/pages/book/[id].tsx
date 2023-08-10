@@ -7,9 +7,10 @@ import { useRouter } from "next/router";
 import { TNews } from "~/Types/News";
 import dayjs from "dayjs";
 import { useCheckoutStore } from "~/store";
-import { THotel, TFacilities } from "~/Types/Hotel";
+import { THotel, TFacilitieName, TRoom } from "~/Types/Hotel";
+import { randomFacilities } from "~/utils/randomFacilities";
 
-const Highlight = ({ highlights }: { highlights: TFacilities[] }) => {
+const Highlight = ({ highlights }: { highlights: TFacilitieName[] }) => {
   const FACILITYS = {
     "Swimming Pool": "solar:swimming-bold-duotone",
     Gym: "mdi:dumbbell",
@@ -22,7 +23,7 @@ const Highlight = ({ highlights }: { highlights: TFacilities[] }) => {
     <div className="w-full p-2 mt-4 border rounded-lg">
       <h4 className="text-xl font-bold">Highlights</h4>
       <div className="grid justify-center grid-cols-12 mt-4 ">
-        {highlights.map(({ name, facility_id }) => (
+        {highlights.map((name) => (
           <div
             key={name}
             className="flex flex-col items-center col-span-12 gap-2 p-2 md:col-span-6 lg:col-span-3"
@@ -64,36 +65,20 @@ const NumberButton = ({
   );
 };
 
-function InsideBooking() {
+const Room = ({ type, roomPrice }: { type: string; roomPrice: number }) => {
   const router = useRouter();
-  const { id } = router.query;
-  const [adults, setAdults] = useState(0);
+  const [adults, setAdults] = useState(1);
   const [kids, setKids] = useState(0);
   const [price, setPrice] = useState(0);
   const [fromDate, setFromDate] = useState(new Date(Date.now()));
   const [toDate, setToDate] = useState(new Date(Date.now() + 86400000));
-  const PRICE = 2260;
+
+  const PRICE = roomPrice;
   useEffect(() => {
     const diff = dayjs(toDate).diff(dayjs(fromDate), "day");
     const price = diff * PRICE * (adults + kids);
     setPrice(price);
   }, [adults, kids, fromDate, toDate]);
-
-  const [hotel, setHotel] = useState<THotel | null>(null);
-  useEffect(() => {
-    const fetchHotels = async () => {
-      try {
-        const res = await api.get("hotels");
-
-        setHotel(
-          res.data.filter(
-            (hotel: THotel) => hotel.hotel_id === parseInt(id as string)
-          )[0]
-        );
-      } catch (err) {}
-    };
-    fetchHotels();
-  }, [id]);
 
   const [carbonAmount, setAmountInBaht, setCarbonAmount] = useCheckoutStore(
     (state) => [state.carbonAmount, state.setMoney, state.setCarbonAmount]
@@ -107,6 +92,108 @@ function InsideBooking() {
 
     router.push("/payment");
   };
+  return (
+    <div className="p-2 mt-2 border rounded-lg shadow bg-sand-1">
+      <h4 className="text-lg font-bold">{type}</h4>
+      <div className="flex flex-wrap items-center justify-between">
+        <div className="flex-1">
+          <div className="flex items-center gap-4 my-2">
+            <div>
+              <h6>From</h6>
+              <input
+                value={fromDate.toISOString().split("T")[0]}
+                onChange={(e) => {
+                  setFromDate(new Date(e.target.value));
+                }}
+                type="date"
+                className="px-2 py-1 border rounded-lg"
+              />
+            </div>
+
+            <div>
+              <h6>To</h6>
+              <input
+                value={toDate.toISOString().split("T")[0]}
+                onChange={(e) => {
+                  setToDate(new Date(e.target.value));
+                }}
+                type="date"
+                className="px-2 py-1 border rounded-lg"
+              />
+            </div>
+          </div>
+        </div>
+        <div className="flex gap-4">
+          <div className="my-2">
+            <div className="mb-2">
+              <h4 className="font-bold">Adults</h4>
+              <p className="text-sm text-sand-11">Ages 18 or above</p>
+            </div>
+
+            <NumberButton
+              amount={adults}
+              onDecrease={() => setAdults(adults - 1)}
+              onIncrease={() => setAdults(adults + 1)}
+            />
+          </div>
+          <div className="my-2">
+            <div className="mb-2">
+              <h4 className="font-bold">Kids</h4>
+              <p className="text-sm text-sand-11">Ages 0-17</p>
+            </div>
+            <NumberButton
+              amount={kids}
+              onDecrease={() => setKids(kids - 1)}
+              onIncrease={() => setKids(kids + 1)}
+            />
+          </div>
+        </div>
+      </div>
+
+      <div className="flex flex-col items-end mt-4">
+        <h4 className="text-3xl font-bold text-green-11">
+          {formatNumberWithCommas(price.toString())} ฿
+        </h4>
+        <button
+          onClick={handleOnBook}
+          className="px-10 py-2 mt-2 border-2 rounded-lg text-green-11 hover:bg-green-9 hover:text-white border-green-10"
+        >
+          Book now
+        </button>
+      </div>
+    </div>
+  );
+};
+
+function InsideBooking() {
+  const router = useRouter();
+  const { id } = router.query;
+
+  const [avialiableRooms, setAvialiableRooms] = useState<TRoom[]>([]);
+
+  const [hotel, setHotel] = useState<THotel | null>(null);
+  useEffect(() => {
+    const fetchHotels = async () => {
+      try {
+        const res = await api.get("hotels");
+
+        setHotel(
+          res.data.hotels.filter(
+            (hotel: THotel) => hotel.hotel_id === parseInt(id as string)
+          )[0]
+        );
+      } catch (err) {}
+    };
+    const fetchAvailableRoom = async () => {
+      try {
+        const res = await api.get(`availableRooms/${id}`);
+
+        setAvialiableRooms(res.data);
+      } catch (err) {}
+    };
+    fetchHotels();
+    fetchAvailableRoom();
+  }, [id]);
 
   return (
     <Layout>
@@ -129,7 +216,7 @@ function InsideBooking() {
       <div className="container px-4 mx-auto -translate-y-48">
         <div className="p-8 bg-white rounded-lg shadow-md">
           <Link
-            href="/news"
+            href="/book"
             className="flex items-center gap-2 text-sand-12 hover:text-sand-12/70 w-fit top-6 left-6"
           >
             <Icon icon="solar:arrow-left-line-duotone" />
@@ -163,74 +250,18 @@ function InsideBooking() {
 
             <h4 className="mt-10 font-bold text-sand-12">Detail</h4>
             <p className="mt-2">{hotel ? hotel.description : "Loading..."}</p>
-            {!!hotel && <Highlight highlights={hotel?.facilities} />}
+            {!!hotel && <Highlight highlights={randomFacilities()} />}
             <div className="mt-6">
               <h2 className="text-xl font-bold">Booking</h2>
-              <div className="flex flex-wrap items-center justify-between">
-                <div className="flex-1">
-                  <div className="flex items-center gap-4 my-2">
-                    <div>
-                      <h6>From</h6>
-                      <input
-                        value={fromDate.toISOString().split("T")[0]}
-                        onChange={(e) => {
-                          setFromDate(new Date(e.target.value));
-                        }}
-                        type="date"
-                        className="px-2 py-1 border rounded-lg"
-                      />
-                    </div>
-
-                    <div>
-                      <h6>To</h6>
-                      <input
-                        value={toDate.toISOString().split("T")[0]}
-                        onChange={(e) => {
-                          setToDate(new Date(e.target.value));
-                        }}
-                        type="date"
-                        className="px-2 py-1 border rounded-lg"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="flex gap-4">
-                  <div className="my-2">
-                    <div className="mb-2">
-                      <h4 className="font-bold">Adults</h4>
-                      <p className="text-sm text-sand-11">Ages 18 or above</p>
-                    </div>
-
-                    <NumberButton
-                      amount={adults}
-                      onDecrease={() => setAdults(adults - 1)}
-                      onIncrease={() => setAdults(adults + 1)}
-                    />
-                  </div>
-                  <div className="my-2">
-                    <div className="mb-2">
-                      <h4 className="font-bold">Kids</h4>
-                      <p className="text-sm text-sand-11">Ages 0-17</p>
-                    </div>
-                    <NumberButton
-                      amount={kids}
-                      onDecrease={() => setKids(kids - 1)}
-                      onIncrease={() => setKids(kids + 1)}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="flex flex-col items-end mt-4">
-                <h4 className="text-3xl font-bold text-green-11">
-                  {formatNumberWithCommas(price.toString())} ฿
-                </h4>
-                <button
-                  onClick={handleOnBook}
-                  className="px-10 py-2 mt-2 border-2 rounded-lg text-green-11 hover:bg-green-9 hover:text-white border-green-10"
-                >
-                  Book now
-                </button>
-              </div>
+              {avialiableRooms.map(
+                ({ price_per_night, room_type, room_id }) => (
+                  <Room
+                    key={room_id}
+                    type={room_type}
+                    roomPrice={price_per_night}
+                  />
+                )
+              )}
             </div>
           </div>
         </div>

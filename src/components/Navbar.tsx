@@ -59,6 +59,9 @@ function Navbar() {
             <Link href="/boards" className="text-green-12 hover:text-green-11">
               Board
             </Link>
+            <Link href="/book" className="text-green-12 hover:text-green-11">
+              Booking
+            </Link>
 
             {!!user && user.user_type_id === 0 && (
               <div>

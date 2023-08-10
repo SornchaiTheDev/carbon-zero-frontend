@@ -1,4 +1,4 @@
-type TFacilitieName =
+export type TFacilitieName =
   | "Swimming Pool"
   | "Gym"
   | "Restaurant"
@@ -21,4 +21,17 @@ export type THotel = {
   description: string;
   hotel_id: number;
   facilities: TFacilities[];
+};
+
+export type TRoom = {
+  room_type: string;
+  price_per_night: number;
+  availability: number;
+  room_id: number;
+  hotel_id: number;
+};
+
+export type TCheapestRoom = {
+  Hotel: THotel;
+  Room: TRoom;
 };
