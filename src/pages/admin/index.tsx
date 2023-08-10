@@ -65,6 +65,23 @@ function AdminIndex() {
             </div>
           </Link>
           <Link
+            href="/admin/events"
+            className="relative col-span-12 h-[10rem] rounded-lg bg-sand-4 shadow-lg hover:bg-sand-5 md:col-span-4"
+          >
+            <div className="absolute flex flex-col items-center w-full gap-4 text-whites bottom-4">
+              <Icon
+                icon="ic:twotone-event-seat"
+                className="text-5xl text-sand-10"
+              />
+              <div className="text-center">
+                <h4 className="text-xl font-bold text-sand-12">Events</h4>
+                <p className="text-gray-1s text-sand-11">
+                  View all Events income
+                </p>
+              </div>
+            </div>
+          </Link>
+          <Link
             href="/admin/hotels"
             className="relative col-span-12 h-[10rem] rounded-lg bg-sand-4 shadow-lg hover:bg-sand-5 md:col-span-4"
           >
@@ -76,7 +93,7 @@ function AdminIndex() {
               <div className="text-center">
                 <h4 className="text-xl font-bold text-sand-12">Hotels</h4>
                 <p className="text-gray-1s text-sand-11">
-                  View all hotels income
+                  View all Hotels income
                 </p>
               </div>
             </div>
