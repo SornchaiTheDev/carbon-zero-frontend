@@ -9,14 +9,14 @@ import Image from "next/image";
 
 function Congrats() {
   const router = useRouter();
-  const [carbonAmount, money, setCarbonAmount, setMoney] = useCheckoutStore(
-    (state) => [
+  const [carbonAmount, money, setCarbonAmount, setMoney, setFee] =
+    useCheckoutStore((state) => [
       state.carbonAmount,
       state.money,
       state.setCarbonAmount,
       state.setMoney,
-    ]
-  );
+      state.setFee,
+    ]);
   const [cert] = useLocalStorage("cert", null);
 
   useEffect(() => {
@@ -28,6 +28,7 @@ function Congrats() {
   const handleOnClaim = () => {
     setCarbonAmount(0);
     setMoney(0);
+    setFee(0);
     if (cert === null) return;
     router.push(cert);
   };
