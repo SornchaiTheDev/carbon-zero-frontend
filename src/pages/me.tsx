@@ -9,6 +9,7 @@ import { TUser } from "~/Types/Users";
 import { api } from "~/utils";
 
 function Me() {
+  const router = useRouter();
   const [user, setUser] = useLocalStorage<TUser | null>("user", null);
 
   useEffect(() => {
@@ -17,7 +18,7 @@ function Me() {
       setUser(res.data);
     };
     fetchUser();
-  }, []);
+  }, [router]);
   // const router = useRouter();
   // useEffect(() => {
   //   setTimeout(() => {
