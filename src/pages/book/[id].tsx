@@ -9,6 +9,8 @@ import dayjs from "dayjs";
 import { useCheckoutStore } from "~/store";
 import { THotel, TFacilitieName, TRoom } from "~/Types/Hotel";
 import { randomFacilities } from "~/utils/randomFacilities";
+import { useLocalStorage } from "usehooks-ts";
+import { TUser } from "~/Types/Users";
 
 const Highlight = ({ highlights }: { highlights: TFacilitieName[] }) => {
   const FACILITYS = {
@@ -65,13 +67,22 @@ const NumberButton = ({
   );
 };
 
-const Room = ({ type, roomPrice }: { type: string; roomPrice: number }) => {
+const Room = ({
+  type,
+  roomPrice,
+  roomId,
+}: {
+  type: string;
+  roomPrice: number;
+  roomId: number;
+}) => {
   const router = useRouter();
   const [adults, setAdults] = useState(1);
   const [kids, setKids] = useState(0);
   const [price, setPrice] = useState(0);
   const [fromDate, setFromDate] = useState(new Date(Date.now()));
   const [toDate, setToDate] = useState(new Date(Date.now() + 86400000));
+  const [user] = useLocalStorage<TUser | null>("user", null);
 
   const PRICE = roomPrice;
   useEffect(() => {
@@ -84,13 +95,24 @@ const Room = ({ type, roomPrice }: { type: string; roomPrice: number }) => {
     (state) => [state.carbonAmount, state.setMoney, state.setCarbonAmount]
   );
 
-  const handleOnBook = () => {
+  const handleOnBook = async () => {
     if (price === 0) return;
     let compensated = price * 0.05;
     setCarbonAmount(compensated);
     setAmountInBaht(price);
 
-    router.push("/payment");
+    try {
+      if (!user) throw new Error("User not found");
+      await api.post("book", {
+        room_id: roomId,
+        user_id: user?.id,
+        check_in_date: fromDate.toISOString(),
+        check_out_date: toDate.toISOString(),
+        guest_name: user?.name + " " + user?.lastname,
+        guest_email: user?.email,
+      });
+      router.push("/payment");
+    } catch (err) {}
   };
   return (
     <div className="p-2 mt-2 border rounded-lg shadow bg-sand-1">
@@ -256,6 +278,7 @@ function InsideBooking() {
               {avialiableRooms.map(
                 ({ price_per_night, room_type, room_id }) => (
                   <Room
+                    roomId={room_id}
                     key={room_id}
                     type={room_type}
                     roomPrice={price_per_night}
