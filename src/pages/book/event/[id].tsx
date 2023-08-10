@@ -141,6 +141,7 @@ function InsideBooking() {
         user_id: user?.id,
         guest_name: user?.name + " " + user?.lastname,
         guest_email: user?.email,
+        amount,
       });
       router.push("/payment");
     } catch (err) {}
