@@ -6,9 +6,10 @@ import { useRouter } from "next/router";
 import { useCheckoutStore } from "~/store";
 
 function Payment() {
-  const [carbonAmount, money] = useCheckoutStore((state) => [
+  const [carbonAmount, money, fee] = useCheckoutStore((state) => [
     state.carbonAmount,
     state.money,
+    state.fee,
   ]);
   const [selected, setSelected] = useState<string>("");
   const [isError, setIsError] = useState(false);
@@ -111,12 +112,12 @@ function Payment() {
             </div>
             <div className="flex gap-4">
               <h4 className="flex-1">Fee:</h4>
-              <h4 className="text-lg font-bold">0 ฿</h4>
+              <h4 className="text-lg font-bold">{fee} ฿</h4>
             </div>
             <hr className="my-2" />
             <div className="flex gap-4">
               <h4 className="flex-1">Total:</h4>
-              <h4 className="text-lg font-bold">{money} ฿</h4>
+              <h4 className="text-lg font-bold">{money + fee} ฿</h4>
             </div>
           </div>
           <button

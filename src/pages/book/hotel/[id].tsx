@@ -11,6 +11,7 @@ import { THotel, TFacilitieName, TRoom } from "~/Types/Hotel";
 import { randomFacilities } from "~/utils/randomFacilities";
 import { useLocalStorage } from "usehooks-ts";
 import { TUser } from "~/Types/Users";
+import { twMerge } from "tailwind-merge";
 
 const Highlight = ({ highlights }: { highlights: TFacilitieName[] }) => {
   const FACILITYS = {
@@ -52,7 +53,10 @@ const NumberButton = ({
     <div className="flex items-center gap-2">
       <button
         onClick={() => amount > 0 && onDecrease()}
-        className="flex items-center justify-center text-white rounded-lg w-7 h-7 hover:bg-green-10 bg-green-9"
+        className={twMerge(
+          "flex items-center justify-center text-white rounded-lg w-7 h-7",
+          amount > 0 ? "hover:bg-green-10 bg-green-9" : "bg-green-6"
+        )}
       >
         <Icon icon="ic:baseline-minus" />
       </button>
@@ -258,10 +262,7 @@ function InsideBooking() {
                 <Icon icon="solar:star-bold" className="text-yellow-9" />
               </div>
               <div className="flex items-center gap-1">
-                <Icon
-                  icon="carbon:location-filled"
-                  className="text-green-10 "
-                />
+                <Icon icon="carbon:location-filled" className="text-green-10" />
                 <h6 className="text-sm">
                   {hotel
                     ? [hotel.address, hotel.city, hotel.country].join(" ")

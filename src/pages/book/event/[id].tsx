@@ -11,55 +11,39 @@ import { THotel, TFacilitieName, TRoom } from "~/Types/Hotel";
 import { randomFacilities } from "~/utils/randomFacilities";
 import { useLocalStorage } from "usehooks-ts";
 import { TUser } from "~/Types/Users";
-
-const Highlight = ({ highlights }: { highlights: TFacilitieName[] }) => {
-  const FACILITYS = {
-    "Swimming Pool": "solar:swimming-bold-duotone",
-    Gym: "mdi:dumbbell",
-    Restaurant: "mdi:food-fork-drink",
-    Spa: "mdi:spa",
-    "Free Wi-Fi": "mdi:wifi",
-    Parking: "mdi:parking",
-  };
-  return (
-    <div className="w-full p-2 mt-4 border rounded-lg">
-      <h4 className="text-xl font-bold">Facilities</h4>
-      <div className="grid justify-center grid-cols-12 mt-4 ">
-        {highlights.map((name) => (
-          <div
-            key={name}
-            className="flex flex-col items-center col-span-12 gap-2 p-2 md:col-span-6 lg:col-span-3"
-          >
-            <Icon icon={FACILITYS[name]} className="text-4xl" />
-            <h6 className="text-sm font-medium">{name}</h6>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-};
+import { TEvent } from "~/Types/Event";
+import { twMerge } from "tailwind-merge";
 
 const NumberButton = ({
   amount,
   onDecrease,
   onIncrease,
+  limit,
 }: {
   amount: number;
   onDecrease: () => void;
   onIncrease: () => void;
+  limit: number;
 }) => {
+  const isFull = amount >= limit;
   return (
     <div className="flex items-center gap-2">
       <button
-        onClick={() => amount > 0 && onDecrease()}
-        className="flex items-center justify-center text-white rounded-lg w-7 h-7 hover:bg-green-10 bg-green-9"
+        onClick={() => (amount > 0 ? onDecrease() : undefined)}
+        className={twMerge(
+          "flex items-center justify-center text-white rounded-lg w-7 h-7",
+          !isFull || amount > 0 ? "hover:bg-green-10 bg-green-9" : "bg-green-6"
+        )}
       >
         <Icon icon="ic:baseline-minus" />
       </button>
       <h5>{amount}</h5>
       <button
-        onClick={() => onIncrease()}
-        className="flex items-center justify-center text-white rounded-lg w-7 h-7 hover:bg-green-10 bg-green-9"
+        onClick={() => (!isFull ? onIncrease() : undefined)}
+        className={twMerge(
+          "flex items-center justify-center text-white rounded-lg w-7 h-7",
+          !isFull ? "hover:bg-green-10 bg-green-9" : "bg-green-6"
+        )}
       >
         <Icon icon="material-symbols:add-rounded" />
       </button>
@@ -91,117 +75,24 @@ const Room = ({
     setPrice(price);
   }, [adults, kids, fromDate, toDate]);
 
-  const [carbonAmount, setAmountInBaht, setCarbonAmount] = useCheckoutStore(
-    (state) => [state.carbonAmount, state.setMoney, state.setCarbonAmount]
-  );
-
-  const handleOnBook = async () => {
-    if (price === 0) return;
-    let compensated = price * 0.05;
-    setCarbonAmount(compensated);
-    setAmountInBaht(price);
-
-    try {
-      if (!user) throw new Error("User not found");
-      await api.post("book", {
-        room_id: roomId,
-        user_id: user?.id,
-        check_in_date: fromDate.toISOString(),
-        check_out_date: toDate.toISOString(),
-        guest_name: user?.name + " " + user?.lastname,
-        guest_email: user?.email,
-      });
-      router.push("/payment");
-    } catch (err) {}
-  };
-  return (
-    <div className="p-2 mt-2 border rounded-lg shadow bg-sand-1">
-      <h4 className="text-lg font-bold">{type}</h4>
-      <div className="flex flex-wrap items-center justify-between">
-        <div className="flex-1">
-          <div className="flex items-center gap-4 my-2">
-            <div>
-              <h6>From</h6>
-              <input
-                value={fromDate.toISOString().split("T")[0]}
-                onChange={(e) => {
-                  setFromDate(new Date(e.target.value));
-                }}
-                type="date"
-                className="px-2 py-1 border rounded-lg"
-              />
-            </div>
-
-            <div>
-              <h6>To</h6>
-              <input
-                value={toDate.toISOString().split("T")[0]}
-                onChange={(e) => {
-                  setToDate(new Date(e.target.value));
-                }}
-                type="date"
-                className="px-2 py-1 border rounded-lg"
-              />
-            </div>
-          </div>
-        </div>
-        <div className="flex gap-4">
-          <div className="my-2">
-            <div className="mb-2">
-              <h4 className="font-bold">Adults</h4>
-              <p className="text-sm text-sand-11">Ages 18 or above</p>
-            </div>
-
-            <NumberButton
-              amount={adults}
-              onDecrease={() => setAdults(adults - 1)}
-              onIncrease={() => setAdults(adults + 1)}
-            />
-          </div>
-          <div className="my-2">
-            <div className="mb-2">
-              <h4 className="font-bold">Kids</h4>
-              <p className="text-sm text-sand-11">Ages 0-17</p>
-            </div>
-            <NumberButton
-              amount={kids}
-              onDecrease={() => setKids(kids - 1)}
-              onIncrease={() => setKids(kids + 1)}
-            />
-          </div>
-        </div>
-      </div>
-
-      <div className="flex flex-col items-end mt-4">
-        <h4 className="text-3xl font-bold text-green-11">
-          {formatNumberWithCommas(price.toString())} ฿
-        </h4>
-        <button
-          onClick={handleOnBook}
-          className="px-10 py-2 mt-2 border-2 rounded-lg text-green-11 hover:bg-green-9 hover:text-white border-green-10"
-        >
-          Book now
-        </button>
-      </div>
-    </div>
-  );
+  return <></>;
 };
-
 function InsideBooking() {
   const router = useRouter();
   const { id } = router.query;
+  const [amount, setAmount] = useState(0);
 
   const [avialiableRooms, setAvialiableRooms] = useState<TRoom[]>([]);
 
-  const [hotel, setHotel] = useState<THotel | null>(null);
+  const [event, setEvent] = useState<TEvent | null>(null);
   useEffect(() => {
     const fetchHotels = async () => {
       try {
-        const res = await api.get("hotels");
+        const res = await api.get("events");
 
-        setHotel(
-          res.data.hotels.filter(
-            (hotel: THotel) => hotel.hotel_id === parseInt(id as string)
+        setEvent(
+          res.data.filter(
+            (event: TEvent) => event.event_id === parseInt(id as string)
           )[0]
         );
       } catch (err) {}
@@ -214,27 +105,62 @@ function InsideBooking() {
       } catch (err) {}
     };
     fetchHotels();
-    fetchAvailableRoom();
   }, [id]);
+
+  const [user] = useLocalStorage<TUser | null>("user", null);
+
+  const [carbonAmount, setAmountInBaht, setCarbonAmount, setFee] =
+    useCheckoutStore((state) => [
+      state.carbonAmount,
+      state.setMoney,
+      state.setCarbonAmount,
+      state.setFee,
+    ]);
+
+  const handleOnBuyTicket = async () => {
+    if (!event) return;
+    const price = amount * event?.price;
+    if (price === 0) return;
+    let compensated = price * 0.05;
+    setCarbonAmount(compensated);
+    setAmountInBaht(price);
+    let fee = 20;
+
+    if (event.price > 500) {
+      fee = price * 0.05;
+    } else if (event.price > 1000) {
+      fee = price * 0.03;
+    }
+
+    setFee(fee);
+
+    try {
+      if (!user) throw new Error("User not found");
+      await api.post("bookEvent", {
+        event_id: id,
+        user_id: user?.id,
+        guest_name: user?.name + " " + user?.lastname,
+        guest_email: user?.email,
+      });
+      router.push("/payment");
+    } catch (err) {}
+  };
 
   return (
     <Layout>
-      {/* {!!news && ( */}
       <div
         className="w-full h-[50vh] px-6"
         style={{
-          background: `url(${
-            // news?.images.length > 0
-            //   ? "https://cbz-backend.peerawitp.me/imgs/" + news?.images[0].image
-            //   :
-            "https://pix8.agoda.net/hotelImages/14654101/-1/a7c3c9a7db41d9ec49737d3506e854d3.jpg?ce=0&s=1024x768&isSkia=true"
-          })`,
+          background: event
+            ? `url(
+            https://cbz-backend.peerawitp.me/imgs/${event.image}
+          )`
+            : undefined,
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
         }}
       ></div>
 
-      {/* )} */}
       <div className="container px-4 mx-auto -translate-y-48">
         <div className="p-8 bg-white rounded-lg shadow-md">
           <Link
@@ -248,44 +174,83 @@ function InsideBooking() {
           <div className="mt-6 bg-white rounded-t-3xl">
             {/* <h4 className="text-green-10">19 JUNE 2023 • 08:30 AM</h4> */}
             <div className="flex flex-col gap-1">
-              <h4 className="w-2/3 mt-2 text-2xl font-bold leading-normal capitalize text-green-12">
-                {hotel ? hotel.name : "Loading..."}
-              </h4>
-              <div className="flex items-center gap-1">
-                <h6 className="text-sm">
-                  {hotel ? hotel.rating : "Loading..."}
-                </h6>
-                <Icon icon="solar:star-bold" className="text-yellow-9" />
+              <div className="px-1 rounded-lg text-green-1 w-fit bg-green-8">
+                {event ? event.event_type : "Loading..."}
               </div>
+              <h4 className="w-2/3 mt-2 text-2xl font-bold leading-normal capitalize text-green-12">
+                {event ? event.name : "Loading..."}
+              </h4>
+
+              <div className="flex items-center gap-1">
+                <Icon icon="carbon:location-filled" className="text-green-10" />
+                <h6 className="text-sm">
+                  {event ? event.location : "Loading..."}
+                </h6>
+              </div>
+
               <div className="flex items-center gap-1">
                 <Icon
-                  icon="carbon:location-filled"
-                  className="text-green-10 "
+                  icon="material-symbols:calendar-month"
+                  className="text-green-10"
                 />
-                <h6 className="text-sm">
-                  {hotel
-                    ? [hotel.address, hotel.city, hotel.country].join(" ")
-                    : "Loading..."}{" "}
-                </h6>
+                {!!event && (
+                  <h6 className="text-sm">
+                    {/* show event date from start to end date using dayjs */}
+                    {dayjs(event.start_date).format("DD/MM/YYYY")} -{" "}
+                    {dayjs(event.end_date).format("DD/MM/YYYY")}
+                  </h6>
+                )}
+              </div>
+              <div className="flex items-center gap-1">
+                <Icon icon="ic:twotone-event-seat" className="text-green-10" />
+                {event ? (
+                  <h6 className="text-sm">
+                    {event.availability}/{event.capacity}
+                  </h6>
+                ) : (
+                  "Loading..."
+                )}
               </div>
             </div>
 
-            <h4 className="mt-10 font-bold text-sand-12">Detail</h4>
-            <p className="mt-2">{hotel ? hotel.description : "Loading..."}</p>
-            {!!hotel && <Highlight highlights={randomFacilities()} />}
-            <div className="mt-6">
-              <h2 className="text-xl font-bold">Booking</h2>
-              {avialiableRooms.map(
-                ({ price_per_night, room_type, room_id }) => (
-                  <Room
-                    roomId={room_id}
-                    key={room_id}
-                    type={room_type}
-                    roomPrice={price_per_night}
-                  />
-                )
-              )}
-            </div>
+            <h4 className="mt-10 font-bold text-sand-12">Description</h4>
+            <p className="mt-2">{event ? event.description : "Loading..."}</p>
+            {!!event && (
+              <div className="mt-6">
+                <h2 className="text-xl font-bold">Tickets</h2>
+                <div className="flex flex-wrap gap-2">
+                  <div className="flex items-center justify-between flex-1 p-4 mt-4 bg-white border rounded text-sand-12 h-fit">
+                    <h4 className="text-xl">Standard</h4>
+                    <NumberButton
+                      limit={event.availability}
+                      amount={amount}
+                      onDecrease={() => setAmount(amount - 1)}
+                      onIncrease={() => setAmount(amount + 1)}
+                    />
+                  </div>
+                  <div className="p-4 mt-4 bg-white border rounded text-sand-12 min-w-[24rem]">
+                    <h4 className="text-lg">Total ({amount} items)</h4>
+                    <h4 className="text-xl font-bold">
+                      ฿{amount * event?.price}
+                    </h4>
+                    <h5 className="text-lg text-sand-10">
+                      *Some fees may be applied
+                    </h5>
+                    <button
+                      onClick={handleOnBuyTicket}
+                      className={twMerge(
+                        "w-full py-2 text-center rounded mt-2",
+                        amount > 0
+                          ? "bg-green-9 text-green-1 hover:bg-green-10"
+                          : "bg-sand-6 text-sand-9"
+                      )}
+                    >
+                      Buy Tickets
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>

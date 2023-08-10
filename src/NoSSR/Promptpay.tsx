@@ -17,9 +17,10 @@ dayjs.extend(relativeTime);
 function Promptpay() {
   const [user] = useLocalStorage<TUser | null>("user", null);
   const router = useRouter();
-  const [money, carbonAmount] = useCheckoutStore((state) => [
+  const [money, carbonAmount, fee] = useCheckoutStore((state) => [
     state.money,
     state.carbonAmount,
+    state.fee,
   ]);
   const [_, setCert] = useLocalStorage<string | null>("cert", null);
   const targetDateTime = useMemo(() => dayjs().add(10, "seconds"), []);
@@ -72,6 +73,8 @@ function Promptpay() {
     checkout();
   }, []);
 
+  const amount = money + fee;
+
   function formatTime(timeInSeconds: number) {
     const hours = Math.floor(timeInSeconds / 3600);
     const minutes = Math.floor((timeInSeconds % 3600) / 60);
@@ -98,10 +101,10 @@ function Promptpay() {
             width={300}
             height={300}
           />
-          <QRCode value={generatePayload("0966353408", { amount: money })} />
+          <QRCode value={generatePayload("0966353408", { amount })} />
           <div className="flex justify-between w-full gap-4">
             <h4 className="text-green-12">Total</h4>
-            <h4 className="font-bold">{money} ฿</h4>
+            <h4 className="font-bold">{amount} ฿</h4>
           </div>
           <div className="flex justify-between w-full gap-4">
             <h4 className="text-green-12">Please pay within</h4>

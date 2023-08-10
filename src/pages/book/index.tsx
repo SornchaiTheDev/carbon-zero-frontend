@@ -22,8 +22,8 @@ const Button = ({
     <button
       {...{ onClick }}
       className={twMerge(
-        "py-1 text-lg  border-b-2 border-transparent hover:border-sand-6",
-        active && "font-bold"
+        "py-1 text-lg  border-b-2 border-transparent",
+        active ? "font-bold border-sand-12" : "hover:border-sand-6"
       )}
     >
       {children}
@@ -72,7 +72,7 @@ const Hotels = () => {
             </div>
           </div>
           <div className="flex items-center gap-1">
-            <Icon icon="carbon:location-filled" className="text-green-12" />
+            <Icon icon="carbon:location-filled" className="text-green-10" />
             <h6 className="text-sm">{[address, city, country].join(" ")}</h6>
           </div>
 
@@ -103,7 +103,6 @@ const Events = () => {
       event_id,
       name,
       image,
-      description,
       location,
       availability,
       event_type,
@@ -124,20 +123,22 @@ const Events = () => {
         }}
       >
         <div className="absolute bottom-0 flex flex-col w-full gap-1 p-4 bg-sand-2">
-          <div className="px-1 rounded-lg text-green-1 w-fit bg-green-8">{event_type}</div>
+          <div className="px-1 rounded-lg text-green-1 w-fit bg-green-8">
+            {event_type}
+          </div>
 
           <div className="flex justify-between">
             <h3 className="text-xl font-bold">{name}</h3>
           </div>
           <div className="flex items-center gap-1">
-            <Icon icon="carbon:location-filled" className="text-green-12" />
+            <Icon icon="carbon:location-filled" className="text-green-10" />
             <h6 className="text-sm">{location}</h6>
           </div>
 
           <div className="flex items-center gap-1">
             <Icon
               icon="material-symbols:calendar-month"
-              className="text-green-12"
+              className="text-green-10"
             />
             <h6 className="text-sm">
               {/* show event date from start to end date using dayjs */}
@@ -146,7 +147,7 @@ const Events = () => {
             </h6>
           </div>
           <div className="flex items-center gap-1">
-            <Icon icon="ic:twotone-event-seat" className="text-green-12" />
+            <Icon icon="ic:twotone-event-seat" className="text-green-10" />
             <h6 className="text-sm">
               {availability}/{capacity}
             </h6>
@@ -176,7 +177,7 @@ const BookingList = () => {
 };
 function Booking() {
   const [active, setActive] = useState<"HOTEL" | "EVENT" | "BOOKINGLIST">(
-    "HOTEL"
+    "EVENT"
   );
 
   return (
