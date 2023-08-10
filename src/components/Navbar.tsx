@@ -132,7 +132,7 @@ function Navbar() {
           </Link>
           <div className="flex items-center justify-end flex-1 gap-4">
             <Link href="/book" className="text-green-12 hover:text-green-11">
-              Booking
+              Bookings
             </Link>
             <Link
               href="/donate"
