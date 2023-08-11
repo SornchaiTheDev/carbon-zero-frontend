@@ -229,7 +229,7 @@ function InsideBooking() {
                       onIncrease={() => setAmount(amount + 1)}
                     />
                   </div>
-                  <div className="p-4 mt-4 bg-white border rounded text-sand-12 min-w-[24rem]">
+                  <div className="p-4 mt-4 bg-white border rounded text-sand-12 max-w-full w-[24rem]">
                     <h4 className="text-lg">Total ({amount} items)</h4>
                     <h4 className="text-xl font-bold">
                       ฿{amount * event?.price}
