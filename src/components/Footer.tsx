@@ -1,6 +1,6 @@
-import Link from "next/link";
-import Image from "next/image";
-import logo from "../../public/assets/logo.png";
+import Link from 'next/link'
+import Image from 'next/image'
+import logo from '../../public/assets/logo.png'
 
 function Footer() {
   return (
@@ -12,15 +12,15 @@ function Footer() {
           <div>
             <h4 className="text-xl text-green-11">Contact Us</h4>
             <p>
-              <span className="font-medium">Cabonzero.co </span> <br />
+              <span className="font-medium">Carbonzero.co </span> <br />
               Kasetsart University,
               <br /> 50 Chatuchak Bangkok
               <br />
               <a
                 className="underline text-green-11"
-                href="mailto:info@cabonzero.co.th"
+                href="mailto:info@carbonzero.co.th"
               >
-                info@cabonzero.co.th
+                info@carbonzero.co.th
               </a>
             </p>
           </div>
@@ -45,7 +45,7 @@ function Footer() {
         </div>
       </div>
     </footer>
-  );
+  )
 }
 
-export default Footer;
+export default Footer
