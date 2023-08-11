@@ -10,6 +10,8 @@ import { twMerge } from "tailwind-merge";
 interface Props {
   exp: number;
 }
+
+type TLevel = 1 | 2 | 3 | 4;
 function Tree({ exp }: Props) {
   const levels = {
     1: 300,
@@ -18,12 +20,12 @@ function Tree({ exp }: Props) {
     4: 1500,
   };
 
-  const calculateLevel = (): number => {
+  const calculateLevel = (): TLevel => {
     const thresholds: number[] = [300, 600, 1000, 1500];
 
     for (let level = 1; level <= thresholds.length; level++) {
       if (exp - thresholds[level - 1] < 0) {
-        return level;
+        return level as TLevel;
       }
     }
 
