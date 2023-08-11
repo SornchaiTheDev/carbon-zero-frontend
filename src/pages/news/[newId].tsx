@@ -68,7 +68,7 @@ function InsideNewsPage() {
             <a
               href={news?.join_detail ? news.join_detail : "#"}
               target="_blank"
-              className="block mt-2 text-blue-11"
+              className="block mt-2 truncate text-blue-11"
             >
               {news ? news.join_detail : "Loading..."}
             </a>
