@@ -206,7 +206,7 @@ function InsideBooking() {
                 <Icon icon="ic:twotone-event-seat" className="text-green-10" />
                 {event ? (
                   <h6 className="text-sm">
-                    {event.availability}/{event.capacity}
+                    {event.capacity - event.availability}/{event.capacity}
                   </h6>
                 ) : (
                   "Loading..."
