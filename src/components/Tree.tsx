@@ -78,7 +78,7 @@ function Tree({ exp }: Props) {
           <h4>{levels[calculateLevel()]}xp</h4>
         </div>
       </div>
-      <div className="flex justify-center">
+      <div className="flex w-[24rem] max-w-full justify-center">
         <Image className="w-1/3" src={state()} alt="Tree state 1" />
       </div>
     </div>
