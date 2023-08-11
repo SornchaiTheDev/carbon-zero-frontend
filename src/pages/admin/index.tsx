@@ -1,31 +1,31 @@
-import Layout from "~/layout";
-import Link from "next/link";
-import { Icon } from "@iconify/react/dist/iconify.js";
-import { useEffect } from "react";
-import { useLocalStorage } from "usehooks-ts";
-import { TUser } from "~/Types/Users";
-import { useRouter } from "next/router";
+import Layout from '~/layout'
+import Link from 'next/link'
+import { Icon } from '@iconify/react/dist/iconify.js'
+import { useEffect } from 'react'
+import { useLocalStorage } from 'usehooks-ts'
+import { TUser } from '~/Types/Users'
+import { useRouter } from 'next/router'
 
 function AdminIndex() {
-  const [user] = useLocalStorage<TUser | null>("user", null);
-  const router = useRouter();
+  const [user] = useLocalStorage<TUser | null>('user', null)
+  const router = useRouter()
 
   useEffect(() => {
     if (user?.user_type_id !== 0) {
-      router.replace("/");
+      router.replace('/')
     }
-  }, [user, router]);
+  }, [user, router])
   return (
     <Layout className="flex flex-col h-screen">
       <div
         className="w-full h-[25vh] px-6"
         style={{
-          background: "url(assets/bg.png)",
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
+          background: 'url(assets/bg.png)',
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: 'cover',
         }}
       ></div>
-      <div className="container flex-1 px-4 mx-auto">
+      <div className="container flex-1 px-4 mx-auto md:mt-32 mt-24">
         <h2 className="my-6 text-4xl font-bold text-green-12">
           Admin Dashboard
         </h2>
@@ -101,7 +101,7 @@ function AdminIndex() {
         </div>
       </div>
     </Layout>
-  );
+  )
 }
 
-export default AdminIndex;
+export default AdminIndex
