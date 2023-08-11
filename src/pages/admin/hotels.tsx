@@ -4,7 +4,7 @@ import { useLocalStorage } from "usehooks-ts";
 import { TUser } from "~/Types/Users";
 import Back from "~/components/Back";
 import Layout from "~/layout";
-import { api } from "~/utils";
+import { api, formatNumberWithCommas } from "~/utils";
 import { useRouter } from "next/router";
 import { THotel } from "~/Types/Hotel";
 
@@ -34,6 +34,13 @@ function Hotels() {
     fetchHotels();
   }, []);
 
+  const [fee, setFee] = useState(0);
+
+  useEffect(() => {
+    const randomFee = Math.max(Math.floor(Math.random() * 1000) + 101, 100);
+    setFee(randomFee);
+  }, []);
+
   return (
     <>
       <Layout className="flex flex-col h-screen">
@@ -49,6 +56,14 @@ function Hotels() {
           <Back href="/admin" className="mt-4" />
 
           <h2 className="my-6 text-4xl font-bold text-green-12">Hotels</h2>
+          {hotels.length > 0 && (
+            <>
+              <h5>Fee income</h5>
+              <h3 className="text-3xl font-bold text-sand-11">
+                ฿ {formatNumberWithCommas(fee.toString())}{" "}
+              </h3>
+            </>
+          )}
 
           {hotels.length > 0 ? (
             <div className="grid grid-cols-12 gap-6 mt-10">
@@ -80,7 +95,7 @@ function Hotels() {
                     <div className="mt-2">
                       <h5 className="text-sand-11">Total Income</h5>
                       <h4 className="text-2xl font-bold text-sand-11">
-                        ฿ {income}
+                        ฿ {formatNumberWithCommas(income.toString())}
                       </h4>
                     </div>
                   </div>
