@@ -11,7 +11,6 @@ interface Props {
   exp: number;
 }
 function Tree({ exp }: Props) {
-  const [currentExp, setCurrentExp] = useState(exp);
   const levels = {
     1: 300,
     2: 600,
@@ -19,18 +18,16 @@ function Tree({ exp }: Props) {
     4: 1500,
   };
 
-  const calculateLevel = () => {
-    if (Math.floor(currentExp / 1500) > 0) {
-      return 4;
-    } else if (Math.floor(currentExp / 1000) > 0) {
-      return 3;
-    } else if (Math.floor(currentExp / 600) > 0) {
-      return 2;
-    } else if (Math.floor(currentExp / 300) > 0) {
-      return 1;
+  const calculateLevel = (): number => {
+    const thresholds: number[] = [300, 600, 1000, 1500];
+
+    for (let level = 1; level <= thresholds.length; level++) {
+      if (exp - thresholds[level - 1] < 0) {
+        return level;
+      }
     }
 
-    return 1;
+    return 4; // Default level if no threshold is met
   };
 
   const state = () => {
@@ -58,9 +55,9 @@ function Tree({ exp }: Props) {
               width: [
                 "0%",
                 `${
-                  currentExp / levels[calculateLevel()] < 1
+                  exp / levels[calculateLevel()] < 1
                     ? Math.min(
-                        ((currentExp % levels[calculateLevel()]) * 100) /
+                        ((exp % levels[calculateLevel()]) * 100) /
                           levels[calculateLevel()],
                         100
                       )
@@ -70,7 +67,7 @@ function Tree({ exp }: Props) {
             }}
             className={twMerge(
               "h-4 rounded-full bg-green-10",
-              currentExp === 0 && "opacity-0"
+              exp === 0 && "opacity-0"
             )}
           ></motion.div>
         </div>
